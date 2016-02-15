@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	{% load staticfiles %}
+	<link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+	<title>Downtown Raleigh Eating. Drinking. List.</title>
+
+	<link href='http://fonts.googleapis.com/css?family=Cantata+One' rel='stylesheet' type='text/css'>
+
+	<!-- Bootstrap core CSS -->
+	<link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="{% static "css/eats-custom.css" %}" rel="stylesheet">
+	<style>
+	#header-image{
+	background-image:url("{% static "img/kimbap-1.jpg" %}");
+}
+	</style>
+</head>
+<body>
+    <div class="container">
+      <div class="jumbotron" id="header-image">
+        <h1>DT Eats</h1>
+        <p class="lead">Downtown. Eating. Drinking. List.</p>
+        <p><a class="btn btn-lg btn-success jQueryBookmark" href="/" title="Downtown Raleigh Eats">Bookmark me!</a></p>
+      </div>
+
+	<div class="row marketing">
+		<div class="col-lg-9" id="listOfDistricts">
+			<div id="districtHeaderDiv">
+				<div id="districtHeaderDivUpper">
+					<p class="text-center"><a id="top"></a>The Districts of</p>
+				</div>
+				<div id="districtHeaderDivLower">
+					<p class="text-center">Downtown Raleigh</p>
+				</div>
+			</div>
+			<ul>
+			{% for district in district_list %}
+				<li>
+					<a href="#{{district.id}}" title="{{district.name}}" class="district_link">{{district.name}}</a>
+				</li>
+			{%endfor%}
+			</ul>
+        </div>
+	</div>
+	<div class="row marketing">
+		<p class="text-center"><button class="btn btn-lg btn-success jQueryLocal" title="Downtown Raleigh Eats Local">Show Local Only</a></button></p>
+		<p class="text-center notlocalyay">Showing only local Eats. (yay!)</p>
+	</div>
+
+	{%for label_set in labels_array%}
+		<div class="col-lg-12">
+			{%for district in district_list%}
+				{%if district.id == label_set.0%}
+					<h3 class="text-center districtLabel"><a id="{{district.id}}"></a>{{district.name}}</h3>
+					{%for label in label_set%}
+						{%if label == "Eats"%}
+							<h5 class="businessTypeLabel">Eats</h5>
+							<ul>
+							{%for business in business_list%}
+								{%if business.district == district and business.is_eats and business.display_on_site%}
+									{%if business.not_local%}
+										<li class="notlocal">
+									{%else%}
+										<li>
+									{%endif%}
+										<a href="{{business.link}}" title="{{business.name}}" class="businessLink">{{business.name}}</a>
+									{%if business.is_temp_closed%}
+										(temp closed)
+									{%endif%}
+									{%if business.has_outdoor_seating%}
+										<img src="{% static "img/outdoor_seating_logo.png" %}" class="outdoorSeatingIcon" title="Outdoor Seating" alt="(Outdoor Seating)">
+									{%endif%}
+										</li>
+								{%endif%}
+							{%endfor%}
+							</ul>
+						{%endif%}
+						{%if label == "Drinks"%}
+							<h5 class="businessTypeLabel">Drinks</h5>
+							<ul>
+							{%for business in business_list%}
+								{%if business.district == district and business.is_drinks and business.display_on_site%}
+										{%if business.not_local%}
+											<li class="notlocal">
+										{%else%}
+											<li>
+										{%endif%}
+											<a href="{{business.link}}" title="{{business.name}}" class="businessLink">{{business.name}}</a>
+										{%if business.is_temp_closed%}
+											(temp closed)
+										{%endif%}
+										{%if business.has_outdoor_seating%}
+											<img src="{% static "img/outdoor_seating_logo.png" %}" class="outdoorSeatingIcon" title="Outdoor Seating" alt="(Outdoor Seating)">
+										{%endif%}
+										{%if "The Architect" in business.name%}
+											<img src="{% static "img/books.jpg" %}" class="books" title="Behind the bookcase" alt="Behind the bookcase" onclick="showhide_menu('btn1');">
+										{%endif%}
+											</li>
+										{%if "The Architect" in business.name%}
+											<li id="btn1" class="btn" style="display:none;">
+    											<a href="http://www.architectbar.com/the-green-light/" class="businessLink" title="The Green Light">The Green Light</a>
+    										</li>
+    									{%endif%}
+								{%endif%}
+							{%endfor%}
+							</ul>
+						{%endif%}
+						{%if label == "Coffees"%}
+							<h5 class="businessTypeLabel">Coffees</h5>
+							<ul>
+							{%for business in business_list%}
+								{%if business.district == district and business.is_coffee and business.display_on_site%}
+										{%if business.not_local%}
+											<li class="notlocal">
+										{%else%}
+											<li>
+										{%endif%}
+											<a href="{{business.link}}" title="{{business.name}}" class="businessLink">{{business.name}}</a>
+										{%if business.is_temp_closed%}
+											(temp closed)
+										{%endif%}
+										{%if business.has_outdoor_seating%}
+											<img src="{% static "img/outdoor_seating_logo.png" %}" class="outdoorSeatingIcon" title="Outdoor Seating" alt="(Outdoor Seating)">
+										{%endif%}
+											</li>
+								{%endif%}
+							{%endfor%}
+							</ul>
+						{%endif%}
+					{%endfor%}
+				{%endif%}
+			{%endfor%}
+			<div class="jumpBtn">
+				<p><a class="btn btn-success" href="#top" title="Back to the Districts">Back to the Districts</a></p>
+			</div>
+		</div>
+	{%endfor%}
+
+    <div class="footer">
+    	<p>&copy; {% now "Y" %} Leo Suarez, a side project of <a href="http://dtraleigh.com" title="The Raleigh Connoisseur">The Raleigh Connoisseur</a></p>
+    </div>
+
+    </div> <!-- /container -->
+
+	<script src="{% static "js/jquery-1.11.0.min.js" %}"}></script>
+	<script src="{% static "js/jquery-migrate-1.2.1.min.js" %}"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+	  $("a.jQueryBookmark").click(function(e){
+	    e.preventDefault(); // this will prevent the anchor tag from going the user off to the link
+	    var bookmarkUrl = this.href;
+	    var bookmarkTitle = this.title;
+
+	    alert('Oopsie! Your browser can\'t bookmark me. Please do it manually.');
+	    });
+	  });
+	</script>
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-3322053-8', 'dtraleigh.com');
+	  ga('send', 'pageview');
+	</script>
+	<script>
+		$(".jQueryLocal").click(function(){
+        	$(".notlocal").toggle();
+        	$(".notlocalyay").toggle();
+      	});
+	</script>
+	<script>
+		window.showhide_menu = function(id){
+		    $('.btn:not(#'+id+')').hide();
+		   $("#" + id).toggle();
+		}
+	</script>
+  </body>
+</html>
