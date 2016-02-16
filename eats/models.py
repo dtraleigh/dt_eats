@@ -11,9 +11,9 @@ class District(models.Model):
         return '%s' % (self.name)
 
 class Business(models.Model):
-    name = models.CharField(max_length=200, unique=True)
+    name = models.CharField(max_length=200)
     district = models.ForeignKey('District')
-    link = models.URLField()
+    link = models.URLField(max_length=500)
     description = models.TextField(default=None, blank=True, null=True)
     latitude = models.IntegerField(default=None, blank=True, null=True, verbose_name='Latitude')
     longitude = models.IntegerField(default=None, blank=True, null=True, verbose_name='Longitude')
