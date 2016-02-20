@@ -1,4 +1,6 @@
 # dt_eats
 Django app that runs the Downtown Raleigh Eats website.
 
-[a link](http://eats.dtraleigh.com/)
+[Eats.DTRaleigh.com](http://eats.dtraleigh.com/)
+
+A side project by Leo Suarez, [DTRaleigh.com](http://dtraleigh.com/)
