@@ -3,7 +3,7 @@ from eats.models import District, Business
 
 # admin.site.register(District)
 class DistrictAdmin(admin.ModelAdmin):
-    fields = ['name', 'description', 'link', 'photo', 'map']
+    fields = ['name', 'description', 'link', 'photo', 'district_map']
     list_display = ('name', 'link')
 
 # admin.site.register(Business)

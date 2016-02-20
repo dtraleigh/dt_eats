@@ -2,7 +2,7 @@ from django.db import models
 
 class District(models.Model):
     name = models.CharField(max_length=200, unique=True)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     link = models.URLField(blank=True)
     photo = models.URLField(blank=True)
     district_map = models.URLField(blank=True)
