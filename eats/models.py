@@ -31,3 +31,12 @@ class Business(models.Model):
 
     def __str__(self):
         return '%s' % (self.name)
+
+class snapshot(models.Model):
+    date = models.DateField(auto_now_add=False)
+    local_business_count = models.IntegerField()
+    not_local_business_count = models.IntegerField()
+    business_list = models.ForeignKey(Business)
+
+    def __str__(self):
+        return 'Snapshot on %s' % (self.date)
