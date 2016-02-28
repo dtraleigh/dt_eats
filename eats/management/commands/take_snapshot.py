@@ -1,3 +1,9 @@
+#////
+#This management command creates a snapshot object which is used to track
+#the number of local and not local businesses in the database at a given point in time.
+#This command is run by cron.
+#\\\\
+
 from django.core.management.base import BaseCommand, CommandError
 from eats.models import Business, snapshot
 
