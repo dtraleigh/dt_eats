@@ -30,7 +30,7 @@ def home(request):
                 break
         labels_array.append(new_district_array)
 
-    return render(request, 'dteats/index.html',
+    return render(request, 'index.html',
                   {'business_list': business_list,
                    'district_list' : district_list,
                    'labels_array' : labels_array})
