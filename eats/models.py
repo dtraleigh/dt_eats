@@ -33,10 +33,10 @@ class Business(models.Model):
         return '%s' % (self.name)
 
 class snapshot(models.Model):
-    date = models.DateField(auto_now_add=False)
+    date = models.DateField(auto_now_add=True)
     local_business_count = models.IntegerField()
     not_local_business_count = models.IntegerField()
-    business_list = models.ForeignKey(Business)
+    businesses = models.ManyToManyField(Business)
 
     def __str__(self):
         return 'Snapshot on %s' % (self.date)
