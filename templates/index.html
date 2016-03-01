@@ -42,7 +42,7 @@
 							<h5 class="businessTypeLabel">Eats</h5>
 							<ul>
 							{%for business in business_list%}
-								{%if business.district == district and business.is_eats and business.display_on_site%}
+								{%if business.district == district and business.is_eats%}
 									{%if business.not_local%}
 										<li class="notlocal">
 									{%else%}
@@ -64,7 +64,7 @@
 							<h5 class="businessTypeLabel">Drinks</h5>
 							<ul>
 							{%for business in business_list%}
-								{%if business.district == district and business.is_drinks and business.display_on_site%}
+								{%if business.district == district and business.is_drinks%}
 										{%if business.not_local%}
 											<li class="notlocal">
 										{%else%}
@@ -94,7 +94,7 @@
 							<h5 class="businessTypeLabel">Coffees</h5>
 							<ul>
 							{%for business in business_list%}
-								{%if business.district == district and business.is_coffee and business.display_on_site%}
+								{%if business.district == district and business.is_coffee%}
 										{%if business.not_local%}
 											<li class="notlocal">
 										{%else%}

@@ -2,7 +2,10 @@ from django.shortcuts import render
 from eats.models import Business, District
 
 def home(request):
-    business_list = Business.objects.all().order_by('name')
+    #///
+    #Create the list of businesses that should be shown on the main site and  the districts
+    #\\\
+    business_list = Business.objects.filter(display_on_site=True).order_by('name')
     district_list = District.objects.all().order_by('name')
 
     #Need to build an array of arrays that contain the district and the appropriate eats, drinks,
