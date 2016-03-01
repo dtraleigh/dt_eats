@@ -1,0 +1,217 @@
+/* Space out content a bit */
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #F9F9F9;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/* Custom page header */
+.header {
+  border-bottom: 1px solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  padding-bottom: 19px;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+.districtLabel{
+	text-decoration: underline;
+}
+
+.districtLabel h3{
+	font-size: 28px;
+}
+
+.businessTypeLabel{
+	background: #DAD2BF;
+	padding: 4px;
+	font: 500 18px/1.3 'Cantata One',Georgia,serif;
+}
+
+.businessLink{
+	color: #01708D;
+	font-size: 1.3em;
+}
+
+.outdoorSeatingIcon{
+	width: 15px;
+	top: -5px;
+	position: relative;
+}
+
+#districtHeaderDiv{
+	border-bottom: 1px solid;
+	margin-bottom: 10px;
+}
+
+#districtHeaderDivUpper{
+	position: relative;
+	margin: 0 0 -15px 0;
+}
+
+#districtHeaderDivUpper p{
+	font: 500 16px/1.3 'Cantata One',Georgia,serif;
+}
+
+#districtHeaderDivLower p{
+	font: 500 26px/1.3 'Cantata One',Georgia,serif;
+}
+
+#listOfDistricts{
+	padding-bottom: 20px;
+	left: 12.5%;
+	background-color: #FFF;
+	border-radius: 6px;
+}
+
+.jumpBtn{
+	margin-top: 30px;
+}
+
+.jumpBtn p{
+	text-align: center;
+}
+
+.btn-success{
+	background-color: #F0622E;
+	border-color: #F0622E;
+}
+
+.btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open .dropdown-toggle.btn-success{
+	background-color: #D8592B;
+	border-color: #FFF;
+}
+
+.district_link{
+	font-size:1.4em;
+}
+
+.notlocalyay{
+	display:none;
+}
+
+.books{
+	width: 30px;
+	position: relative;
+}
+/*
+Login page
+*/
+.login-wrapper {
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+.form-signin {
+  max-width: 380px;
+  padding: 15px 35px 45px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 30px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 20px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/*
+Responsive elements
+*/
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+@media (max-width: 1200px) {
+  #listOfDistricts{
+	left: 0%;
+  }
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+  padding: 14px 24px;
+  font-size: 21px;
+}
+.jumbotron h1, .jumbotron p{
+	color:#E5E5E5;
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
