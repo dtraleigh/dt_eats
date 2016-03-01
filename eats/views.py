@@ -37,3 +37,10 @@ def home(request):
                   {'business_list': business_list,
                    'district_list' : district_list,
                    'labels_array' : labels_array})
+
+def login(request):
+    #///
+    #This is the login page for the management view. (not the django admin page)
+    #\\\
+
+    return render(request, 'login.html')
