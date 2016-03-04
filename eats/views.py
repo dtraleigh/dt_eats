@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.contrib.auth import authenticate, login
 from eats.models import Business, District
 
 def home(request):
@@ -38,9 +40,33 @@ def home(request):
                    'district_list' : district_list,
                    'labels_array' : labels_array})
 
-def login(request):
+def eats_login(request):
     #///
     #This is the login page for the management view. (not the django admin page)
     #\\\
+    message = 'Please log in'
 
-    return render(request, 'login.html')
+    if request.POST:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                message = 'Login successful.'
+
+                return HttpResponseRedirect('/manage/main/')
+            else:
+                message = 'Account is disabled.'
+        else:
+            message = 'Invalid login.'
+
+    return render(request, 'login.html', {'message':message})
+
+def main(request):
+    #///
+    #This is the main manage page.
+    #\\\
+
+    return render(request, 'main.html')
