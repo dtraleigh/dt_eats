@@ -14,7 +14,7 @@ Quick action menu on a result
 
     <ul id="list">
       {%for business in all_businesses%}
-        <li><a href="#">{{business.name}}</a></li>
+        <li><a href="/manage/edit/{{business.id}}">{{business.name}}</a></li>
       {%endfor%}
     <ul>
   </div>

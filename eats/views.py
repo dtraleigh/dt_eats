@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from eats.models import Business, District
+from eats.forms import edit_business_form
 
 def home(request):
     #///
@@ -71,3 +72,30 @@ def main(request):
     all_businesses = Business.objects.all()
 
     return render(request, 'main.html', {'all_businesses':all_businesses})
+
+def edit_business(request, biz_id):
+    #///
+    #This page should show the edit business form
+    #\\\
+    business_to_edit = Business.objects.get(id=biz_id)
+
+    if request.POST:
+        form = edit_business_form(request.POST, instance=business_to_edit)
+
+        if form.is_valid():
+            form.save()
+
+    form = edit_business_form(initial=
+        {'name': business_to_edit.name,
+        'district': business_to_edit.district,
+        'link': business_to_edit.link,
+        'has_outdoor_seating': business_to_edit.has_outdoor_seating,
+        'is_temp_closed': business_to_edit.is_temp_closed,
+        'display_on_site': business_to_edit.display_on_site,
+        'is_eats': business_to_edit.is_eats,
+        'is_drinks': business_to_edit.is_drinks,
+        'is_coffee': business_to_edit.is_coffee,
+        'not_local': business_to_edit.not_local,}
+        )
+
+    return render(request, 'business_edit.html', {'form':form})
