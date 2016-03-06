@@ -68,5 +68,6 @@ def main(request):
     #///
     #This is the main manage page.
     #\\\
+    all_businesses = Business.objects.all()
 
-    return render(request, 'main.html')
+    return render(request, 'main.html', {'all_businesses':all_businesses})

@@ -8,14 +8,16 @@ Quick action menu on a result
  - Add Outdoor Seating
  - Remove Outdoor Seating
 -->
+<div class="container">
+  <div class="row">
+    <h1 id="header">All Businesses</h1>
 
-<h1 id="header">DVD Collection</h1>
-
-<ul id="list">
-  <li><a href="#">Batman</a></li>
-  <li><a href="#">Ice Age</a></li>
-  <li><a href="#">Star Trek (2009)</a></li>
-  <li><a href="#">Tremors</a></li>
-<ul>
+    <ul id="list">
+      {%for business in all_businesses%}
+        <li><a href="#">{{business.name}}</a></li>
+      {%endfor%}
+    <ul>
+  </div>
+</div>
 
 {%endblock content%}
