@@ -83,6 +83,11 @@ def edit_business(request, biz_id):
     if request.POST:
         form = edit_business_form(request.POST, instance=business_to_edit)
 
+        if "cancel-button" in request.POST:
+            messages.info(request, 'Canceled edit.')
+
+            return HttpResponseRedirect('/manage/main/')
+
         if form.is_valid():
             form.save()
             messages.success(request, 'Business details updated.')
