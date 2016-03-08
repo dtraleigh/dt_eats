@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
+from django.contrib import messages
 from eats.models import Business, District
 from eats.forms import edit_business_form
 
@@ -84,6 +85,9 @@ def edit_business(request, biz_id):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Business details updated.')
+
+            return HttpResponseRedirect('/manage/main/')
 
     form = edit_business_form(initial=
         {'name': business_to_edit.name,
