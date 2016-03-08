@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from eats.models import Business, District
 from eats.forms import edit_business_form
@@ -66,6 +66,11 @@ def eats_login(request):
 
     return render(request, 'login.html', {'message':message})
 
+def eats_logout(request):
+    logout(request)
+
+    return HttpResponseRedirect('/manage/')
+
 def main(request):
     #///
     #This is the main manage page.
@@ -84,13 +89,13 @@ def edit_business(request, biz_id):
         form = edit_business_form(request.POST, instance=business_to_edit)
 
         if "cancel-button" in request.POST:
-            messages.info(request, 'Canceled edit.')
+            messages.info(request, 'Canceled edit to ' + business_to_edit.name + '.')
 
             return HttpResponseRedirect('/manage/main/')
 
         if form.is_valid():
             form.save()
-            messages.success(request, 'Business details updated.')
+            messages.success(request, 'Details for ' + business_to_edit.name + ' updated.')
 
             return HttpResponseRedirect('/manage/main/')
 
