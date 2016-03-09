@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from eats.models import Business, District
 from eats.forms import edit_business_form
 
@@ -71,6 +72,7 @@ def eats_logout(request):
 
     return HttpResponseRedirect('/manage/')
 
+@login_required(login_url='/manage/')
 def main(request):
     #///
     #This is the main manage page.
@@ -79,6 +81,7 @@ def main(request):
 
     return render(request, 'main.html', {'all_businesses':all_businesses})
 
+@login_required(login_url='/manage/')
 def edit_business(request, biz_id):
     #///
     #This page should show the edit business form
