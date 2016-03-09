@@ -6,7 +6,8 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	{% load staticfiles %}
-	<link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+	<!--
+	<link rel="shortcut icon" href="../../assets/ico/favicon.ico">-->
 
 	<title>Downtown Raleigh Eating. Drinking. List.</title>
 
@@ -15,8 +16,43 @@
 
 	<!-- Custom styles for this template -->
 	<link href="{% static "css/eats-custom.css" %}" rel="stylesheet">
+</head>
+<body>
+	{% block navbar %}
+	<nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Project name</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/manage/main/">Home</a></li>
+          <li><a href="/manage/main/logout/">Logout</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+	{% endblock %}
 
-	<script src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+  {% block content %}{% endblock %}
+
+	<!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="{% static "js/1.11.3/jquery.min.js" %}"></script>
+	<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+  <script src="{% static "js/bootstrap.min.js" %}"></script>
+  <script src="{% static "js/docs.min.js" %}"></script>
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <script src="{% static "js/ie10-viewport-bug-workaround.js" %}"></script>
+	<!-- Search filter-->
+	<script src="{% static "js/jquery-1.4.2.min.js" %}"></script>
 	<script>
 		(function ($) {
 			jQuery.expr[':'].Contains = function(a,i,m){
@@ -49,29 +85,5 @@
 			});
 		}(jQuery));
 	</script>
-</head>
-<body>
-	<nav class="navbar navbar-inverse">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">Project name</a>
-      </div>
-      <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="/manage/main/">Home</a></li>
-          <li><a href="/manage/main/logout/">Logout</a></li>
-        </ul>
-      </div><!--/.nav-collapse -->
-    </div>
-  </nav>
-
-    {% block content %}{% endblock %}
-
 </body>
 </html>
