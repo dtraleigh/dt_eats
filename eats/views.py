@@ -116,3 +116,19 @@ def edit_business(request, biz_id):
         )
 
     return render(request, 'business_edit.html', {'form':form})
+
+@login_required(login_url='/manage/')
+def add_business(request, biz_id):
+    #///
+    #This page has a form for adding a new business.
+    #\\\
+
+    pass
+
+@login_required(login_url='/manage/')
+def tips_page(request, biz_id):
+    #///
+    #This page shows and manages all the tips.
+    #\\\
+
+    pass
