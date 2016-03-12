@@ -6,10 +6,6 @@ class district_admin(admin.ModelAdmin):
     list_display = ('name', 'link')
 
 class business_admin(admin.ModelAdmin):
-    fields = ('name', 'district', 'link', 'description',
-               'display_on_site', 'has_outdoor_seating', 'is_temp_closed',
-              'is_eats', 'is_drinks', 'is_coffee', 'not_local',
-              'latitude', 'longitude')
     list_display = ('name', 'district', 'not_local', 'display_on_site')
 
     actions = ['make_not_local', 'make_local']

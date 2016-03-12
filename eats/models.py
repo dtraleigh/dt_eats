@@ -24,6 +24,8 @@ class Business(models.Model):
     is_drinks = models.BooleanField(verbose_name='Drinks')
     is_coffee = models.BooleanField(verbose_name='Coffees')
     not_local = models.BooleanField(verbose_name='Not local?')
+    open_date = models.DateField()
+    close_date = models.DateField(null=True, blank=True)
 
     class Meta:
         verbose_name = 'Business'
@@ -40,3 +42,17 @@ class snapshot(models.Model):
 
     def __str__(self):
         return 'Snapshot on %s' % (self.date)
+
+class tip(models.Model):
+    date = models.DateField(auto_now_add=True, verbose_name='Date added.')
+    name = models.CharField(max_length=200)
+    district = models.ForeignKey('District')
+    link = models.URLField(max_length=500, default=None, blank=True, null=True)
+    description = models.TextField(default=None, blank=True, null=True)
+    has_outdoor_seating = models.BooleanField(verbose_name='Outdoor Seating?')
+    is_temp_closed = models.BooleanField(verbose_name='Temporarily closed?')
+    display_on_site = models.BooleanField(verbose_name='Display on Site?')
+    is_eats = models.BooleanField(verbose_name='Eats')
+    is_drinks = models.BooleanField(verbose_name='Drinks')
+    is_coffee = models.BooleanField(verbose_name='Coffees')
+    not_local = models.BooleanField(verbose_name='Not local?')
