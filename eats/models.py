@@ -56,3 +56,6 @@ class tip(models.Model):
     is_drinks = models.BooleanField(verbose_name='Drinks')
     is_coffee = models.BooleanField(verbose_name='Coffees')
     not_local = models.BooleanField(verbose_name='Not local?')
+
+    def __str__(self):
+        return '%s' % (self.name)

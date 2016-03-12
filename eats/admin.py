@@ -23,7 +23,7 @@ class snapshot_admin(admin.ModelAdmin):
     list_display = ('date', 'local_business_count', 'not_local_business_count')
 
 class tip_admin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'date')
+    list_display = ('name', 'district', 'description', 'date')
 
 admin.site.register(District, district_admin)
 admin.site.register(Business, business_admin)
