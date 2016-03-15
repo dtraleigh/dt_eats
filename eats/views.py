@@ -115,7 +115,6 @@ def edit_business(request, biz_id):
         'link': business_to_edit.link,
         'has_outdoor_seating': business_to_edit.has_outdoor_seating,
         'is_temp_closed': business_to_edit.is_temp_closed,
-        'display_on_site': business_to_edit.display_on_site,
         'is_eats': business_to_edit.is_eats,
         'is_drinks': business_to_edit.is_drinks,
         'is_coffee': business_to_edit.is_coffee,
