@@ -3,15 +3,22 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from eats.models import Business, District
 from eats.forms import edit_business_form
+import datetime
 
 def home(request):
     #///
-    #Create the list of businesses that should be shown on the main site and  the districts
+    #Create the list of businesses that should be shown on the main site and the districts
     #\\\
-    business_list = Business.objects.filter(display_on_site=True).order_by('name')
     district_list = District.objects.all().order_by('name')
+
+    #Get only open businesses.
+    open_businesses = Business.objects.filter(
+                Q(open_date__lte=datetime.datetime.today()) &
+                (Q(close_date=None) | Q(close_date__gt=datetime.datetime.today()))
+            ).order_by('name')
 
     #Need to build an array of arrays that contain the district and the appropriate eats, drinks,
     #coffees labels, depending on if these are appropriate or not.
@@ -24,22 +31,22 @@ def home(request):
     for district in district_list:
         new_district_array = []
         new_district_array.append(district.id)
-        for business in business_list:
-            if business.is_eats and business.district == district and business.display_on_site:
+        for business in open_businesses:
+            if business.is_eats and business.district == district:
                 new_district_array.append("Eats")
                 break
-        for business in business_list:
-            if business.is_drinks and business.district == district and business.display_on_site:
+        for business in open_businesses:
+            if business.is_drinks and business.district == district:
                 new_district_array.append("Drinks")
                 break
-        for business in business_list:
-            if business.is_coffee and business.district == district and business.display_on_site:
+        for business in open_businesses:
+            if business.is_coffee and business.district == district:
                 new_district_array.append("Coffees")
                 break
         labels_array.append(new_district_array)
 
     return render(request, 'index.html',
-                  {'business_list': business_list,
+                  {'business_list': open_businesses,
                    'district_list' : district_list,
                    'labels_array' : labels_array})
 
