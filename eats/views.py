@@ -118,7 +118,9 @@ def edit_business(request, biz_id):
         'is_eats': business_to_edit.is_eats,
         'is_drinks': business_to_edit.is_drinks,
         'is_coffee': business_to_edit.is_coffee,
-        'not_local': business_to_edit.not_local,}
+        'not_local': business_to_edit.not_local,
+        'close_date': business_to_edit.close_date,
+        'open_date': business_to_edit.open_date}
         )
 
     return render(request, 'business_edit.html', {'form':form})
