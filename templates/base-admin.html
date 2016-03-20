@@ -16,6 +16,9 @@
 
 	<!-- Custom styles for this template -->
 	<link href="{% static "css/eats-custom.css" %}" rel="stylesheet">
+
+	<!-- List.js -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.2.0/list.min.js"></script>
 </head>
 <body>
 	{% block navbar %}
@@ -51,41 +54,17 @@
 	<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
   <script src="{% static "js/bootstrap.min.js" %}"></script>
   <script src="{% static "js/docs.min.js" %}"></script>
-  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
   <script src="{% static "js/ie10-viewport-bug-workaround.js" %}"></script>
-	<!-- Search filter-->
-	<script src="{% static "js/jquery-1.4.2.min.js" %}"></script>
+
+	<!-- List.js variables -->
 	<script>
-		(function ($) {
-			jQuery.expr[':'].Contains = function(a,i,m){
-				return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
-			};
+	var options = {
+	  valueNames: [ 'business_name' ]
+	};
 
-			function listFilter(header, list) {
-			var form = $("<form>").attr({"class":"filterform","action":"#"}),
-				input = $("<input>").attr({"class":"filterinput","type":"text"});
-			$(form).append(input).appendTo(header);
-
-			$(input)
-				.change( function () {
-				var filter = $(this).val();
-				if(filter) {
-					$(list).find("a:not(:Contains(" + filter + "))").parent().slideUp();
-					$(list).find("a:Contains(" + filter + ")").parent().slideDown();
-				} else {
-					$(list).find("li").slideDown();
-				}
-				return false;
-				})
-			.keyup( function () {
-				$(this).change();
-			});
-			}
-
-			$(function () {
-			listFilter($("#header"), $("#list"));
-			});
-		}(jQuery));
+	var userList = new List('business_list', options);
 	</script>
 </body>
 </html>

@@ -1,15 +1,9 @@
 {% extends "base-admin.html" %}
 
 {% block content %}
-<!--
-Actions to offer here:
-Business quick search -> Result takes me to the edit business page
-Quick action menu on a result
- - Add Outdoor Seating
- - Remove Outdoor Seating
--->
+
 <div class="container">
-  <div class="row">
+  <div class="row" id="business_list">
     {% if messages %}
     <div class="alert alert-success" role="alert">
           {% for message in messages %}
@@ -18,10 +12,14 @@ Quick action menu on a result
     </div>
     {% endif %}
     <h1 id="header">All Businesses</h1>
+    <input class="search" placeholder="Search" />
+    <button class="sort" data-sort="business_name">
+      Find
+    </button>
 
-    <ul id="list">
+    <ul class="list">
       {%for business in all_businesses%}
-        <li><a href="/manage/edit/{{business.id}}">{{business.name}}</a></li>
+        <li><a href="/manage/edit/{{business.id}}" class="business_name">{{business.name}}</a></li>
       {%endfor%}
     <ul>
   </div>
