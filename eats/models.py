@@ -24,7 +24,7 @@ class Business(models.Model):
     is_coffee = models.BooleanField(verbose_name='Coffees')
     not_local = models.BooleanField(verbose_name='Not local?')
     open_date = models.DateField()
-    close_date = models.DateField(null=True, blank=True)
+    close_date = models.DateField(null=True, blank=True, verbose_name='First closed date')
 
     class Meta:
         verbose_name = 'Business'
