@@ -134,7 +134,7 @@ def add_business(request):
         form = edit_business_form(request.POST)
 
         if "cancel-button" in request.POST:
-            messages.info(request, 'Canceled edit to ' + business_to_edit.name + '.')
+            messages.info(request, 'Canceled adding new business.')
 
             return HttpResponseRedirect('/manage/main/')
 
