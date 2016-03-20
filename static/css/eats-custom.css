@@ -155,7 +155,15 @@ Login page
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-
+#find-button {
+  display:none;
+}
+#main_business_list{
+  list-style-type: none;
+}
+.business_name{
+  font-size: x-large;
+}
 /*
 Responsive elements
 */

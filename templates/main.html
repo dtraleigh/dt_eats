@@ -11,13 +11,16 @@
           {% endfor %}
     </div>
     {% endif %}
-    <h1 id="header">All Businesses</h1>
-    <input class="search" placeholder="Search" />
-    <button class="sort" data-sort="business_name">
-      Find
-    </button>
+    <h1 id="header" class="text-center">All Businesses</h1>
+    <ul class="form-style-1">
+      <li><input class="search field-long" placeholder="Search" />
+      <button class="sort" id="find-button" data-sort="business_name">
+            Find
+          </button>
+      </li>
+    </ul>
 
-    <ul class="list">
+    <ul class="list text-center" id="main_business_list">
       {%for business in all_businesses%}
         <li><a href="/manage/edit/{{business.id}}" class="business_name">{{business.name}}</a></li>
       {%endfor%}
