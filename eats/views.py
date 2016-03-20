@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from eats.models import Business, District
-from eats.forms import edit_business_form
+from eats.forms import edit_business_form, new_business_form
 import datetime
 
 def home(request):
@@ -126,12 +126,28 @@ def edit_business(request, biz_id):
     return render(request, 'business_edit.html', {'form':form})
 
 @login_required(login_url='/manage/')
-def add_business(request, biz_id):
+def add_business(request):
     #///
     #This page has a form for adding a new business.
     #\\\
+    if request.POST:
+        form = edit_business_form(request.POST)
 
-    pass
+        if "cancel-button" in request.POST:
+            messages.info(request, 'Canceled edit to ' + business_to_edit.name + '.')
+
+            return HttpResponseRedirect('/manage/main/')
+
+        if form.is_valid():
+            new_business_name = form.cleaned_data['name']
+            form.save()
+            messages.success(request, 'New business, ' + new_business_name + ', added.')
+
+            return HttpResponseRedirect('/manage/main/')
+
+    form = new_business_form()
+
+    return render(request, 'business_add.html', {'form':form})
 
 @login_required(login_url='/manage/')
 def tips_page(request, biz_id):

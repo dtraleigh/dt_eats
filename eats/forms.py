@@ -5,3 +5,8 @@ class edit_business_form(ModelForm):
     class Meta:
         model = Business
         exclude = ['description' , 'latitude', 'longitude']
+
+class new_business_form(ModelForm):
+    class Meta:
+        model = Business
+        exclude = ['description' , 'latitude', 'longitude']
