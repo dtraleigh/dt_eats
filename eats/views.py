@@ -95,7 +95,7 @@ def edit_business(request, biz_id):
     #\\\
     business_to_edit = Business.objects.get(id=biz_id)
 
-    if request.POST:
+    if request.method == 'POST':
         form = edit_business_form(request.POST, instance=business_to_edit)
 
         if "cancel-button" in request.POST:
@@ -108,20 +108,20 @@ def edit_business(request, biz_id):
             messages.success(request, 'Details for ' + business_to_edit.name + ' updated.')
 
             return HttpResponseRedirect('/manage/main/')
-
-    form = edit_business_form(initial=
-        {'name': business_to_edit.name,
-        'district': business_to_edit.district,
-        'link': business_to_edit.link,
-        'has_outdoor_seating': business_to_edit.has_outdoor_seating,
-        'is_temp_closed': business_to_edit.is_temp_closed,
-        'is_eats': business_to_edit.is_eats,
-        'is_drinks': business_to_edit.is_drinks,
-        'is_coffee': business_to_edit.is_coffee,
-        'not_local': business_to_edit.not_local,
-        'close_date': business_to_edit.close_date,
-        'open_date': business_to_edit.open_date}
-        )
+    else:
+        form = edit_business_form(initial=
+            {'name': business_to_edit.name,
+            'district': business_to_edit.district,
+            'link': business_to_edit.link,
+            'has_outdoor_seating': business_to_edit.has_outdoor_seating,
+            'is_temp_closed': business_to_edit.is_temp_closed,
+            'is_eats': business_to_edit.is_eats,
+            'is_drinks': business_to_edit.is_drinks,
+            'is_coffee': business_to_edit.is_coffee,
+            'not_local': business_to_edit.not_local,
+            'close_date': business_to_edit.close_date,
+            'open_date': business_to_edit.open_date}
+            )
 
     return render(request, 'business_edit.html', {'form':form})
 
@@ -130,7 +130,7 @@ def add_business(request):
     #///
     #This page has a form for adding a new business.
     #\\\
-    if request.POST:
+    if request.method == 'POST':
         form = edit_business_form(request.POST)
 
         if "cancel-button" in request.POST:
@@ -144,8 +144,8 @@ def add_business(request):
             messages.success(request, 'New business, ' + new_business_name + ', added.')
 
             return HttpResponseRedirect('/manage/main/')
-
-    form = new_business_form()
+    else:
+        form = new_business_form(initial={'link': 'http://',})
 
     return render(request, 'business_add.html', {'form':form})
 
