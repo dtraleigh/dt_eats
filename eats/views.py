@@ -84,7 +84,7 @@ def main(request):
     #///
     #This is the main manage page.
     #\\\
-    all_businesses = Business.objects.all()
+    all_businesses = Business.objects.all().order_by('-date_added')
 
     return render(request, 'main.html', {'all_businesses':all_businesses})
 
