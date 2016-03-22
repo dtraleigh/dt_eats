@@ -11,6 +11,7 @@ class District(models.Model):
         return '%s' % (self.name)
 
 class Business(models.Model):
+    date_added = models.DateTimeField(auto_now_add=True, verbose_name='Date added.')
     name = models.CharField(max_length=200)
     district = models.ForeignKey('District')
     link = models.URLField(max_length=500)
