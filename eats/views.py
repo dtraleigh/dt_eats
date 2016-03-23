@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from eats.models import Business, District
+from eats.models import Business, District, tip
 from eats.forms import edit_business_form, new_business_form
 import datetime
 
@@ -150,9 +150,10 @@ def add_business(request):
     return render(request, 'business_add.html', {'form':form})
 
 @login_required(login_url='/manage/')
-def tips_page(request, biz_id):
+def tips_page(request):
     #///
     #This page shows and manages all the tips.
     #\\\
+    tip_list = tip.objects.all()
 
-    pass
+    return render(request, 'tips.html', {'tip_list':tip_list})

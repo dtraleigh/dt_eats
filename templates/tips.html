@@ -1,0 +1,30 @@
+{% extends "base-admin.html" %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-lg-6">
+      <h1>Tips</h1>
+      {%for tip in tip_list%}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{tip.name}}</h3>
+        </div>
+        <div class="panel-body">
+          <ul>
+            <li>{{tip.description}}</li>
+            <li><a href="{{tip.link}}">Website</a></li>
+        </div>
+      </div>
+      {%empty%}
+      <p>No tips at this time.</p>
+      {%endfor%}
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-6">
+      <h1>Let's add a form for new tips here</h1>
+    </div>
+  </div>
+</div>
+
+{%endblock content%}
