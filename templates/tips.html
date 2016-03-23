@@ -6,15 +6,19 @@
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-lg-6">
       <h1>Tips</h1>
-      {%for tip in tip_list%}
+      {%for district in district_list%}
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">{{tip.name}}</h3>
+          <h3 class="panel-title">{{district.name}}</h3>
         </div>
         <div class="panel-body">
           <ul>
-            <li>{{tip.description}}</li>
-            <li><a href="{{tip.link}}">Website</a></li>
+            {%for tip in tip_list%}
+              {%if tip.district == district%}
+                <li><a href="/manage/tips/{{tip.id}}">{{tip.name}}</a></li>
+              {%endif%}
+            {%endfor%}
+          </ul>
         </div>
       </div>
       {%empty%}

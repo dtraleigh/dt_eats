@@ -155,5 +155,6 @@ def tips_page(request):
     #This page shows and manages all the tips.
     #\\\
     tip_list = tip.objects.all()
+    district_list = District.objects.all()
 
-    return render(request, 'tips.html', {'tip_list':tip_list})
+    return render(request, 'tips.html', {'tip_list':tip_list, 'district_list':district_list})
