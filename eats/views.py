@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from eats.models import Business, District, tip
-from eats.forms import edit_business_form, new_business_form
+from eats.forms import edit_business_form, new_business_form, new_tip_form
 import datetime
 
 def home(request):
@@ -157,4 +157,23 @@ def tips_page(request):
     tip_list = tip.objects.all()
     district_list = District.objects.all()
 
-    return render(request, 'tips.html', {'tip_list':tip_list, 'district_list':district_list})
+    if request.method == 'POST':
+        tip_form = new_tip_form(request.POST)
+
+        if "cancel-button" in request.POST:
+            messages.info(request, 'Canceled adding new tip.')
+
+            return HttpResponseRedirect('/manage/main/')
+
+        if tip_form.is_valid():
+            new_tip_name = tip_form.cleaned_data['name']
+            tip_form.save()
+            messages.success(request, 'New tip, ' + new_tip_name + ', added.')
+
+            return HttpResponseRedirect('/manage/main/')
+    else:
+        tip_form = new_tip_form()
+
+    return render(request, 'tips.html', {'tip_list':tip_list,
+                                    'district_list':district_list,
+                                    'tip_form':tip_form})

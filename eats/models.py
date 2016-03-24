@@ -51,7 +51,6 @@ class tip(models.Model):
     description = models.TextField(default=None, blank=True, null=True)
     has_outdoor_seating = models.BooleanField(verbose_name='Outdoor Seating?')
     is_temp_closed = models.BooleanField(verbose_name='Temporarily closed?')
-    display_on_site = models.BooleanField(verbose_name='Display on Site?')
     is_eats = models.BooleanField(verbose_name='Eats')
     is_drinks = models.BooleanField(verbose_name='Drinks')
     is_coffee = models.BooleanField(verbose_name='Coffees')
