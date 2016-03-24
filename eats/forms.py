@@ -15,3 +15,8 @@ class new_tip_form(ModelForm):
     class Meta:
         model = tip
         exclude = ['open_date']
+
+class edit_tip_form(ModelForm):
+    class Meta:
+        model = tip
+        fields = '__all__'

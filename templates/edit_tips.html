@@ -1,0 +1,68 @@
+{% extends "base-admin.html" %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <form method="POST" class="tip_form">{% csrf_token %}
+      <ul class="form-style-1">
+        {% load widget_tweaks %}
+        <li>
+          {{ tip_form.name.errors }}
+          <label for="{{ tip_form.name.id_for_label }}">Name:</label>
+          {{ tip_form.name|add_class:"input-lg" }}
+        </li>
+        <li>
+          {{ tip_form.district.errors }}
+          <label for="{{ tip_form.district.id_for_label }}">District:</label>
+          {{ tip_form.district|add_class:"input-lg" }}
+        </li>
+        <li>
+          {{ tip_form.link.errors }}
+          <label for="{{ tip_form.link.id_for_label }}">URL:</label>
+          {{ tip_form.link|add_class:"input-lg" }}
+        </li>
+        <li>
+          {{ tip_form.description.errors }}
+          <label for="{{ tip_form.description.id_for_label }}">Description:</label>
+          {{ tip_form.description|add_class:"input-lg" }}
+        </li>
+        <li>
+          <label for="{{ tip_form.has_outdoor_seating.id_for_label }}">Outdoor Seating:</label>
+          {{tip_form.has_outdoor_seating}}
+        </li>
+        <li>
+          <label for="{{ tip_form.is_temp_closed.id_for_label }}">Temporarily closed:</label>
+          {{tip_form.is_temp_closed}}
+        </li>
+        <li>
+          <label for="{{ tip_form.is_eats.id_for_label }}">Eats:</label>
+          {{tip_form.is_eats}}
+        </li>
+        <li>
+          <label for="{{ tip_form.is_drinks.id_for_label }}">Drinks:</label>
+          {{tip_form.is_drinks}}
+        </li>
+        <li>
+          <label for="{{ tip_form.is_coffee.id_for_label }}">Coffees:</label>
+          {{tip_form.is_coffee}}
+        </li>
+        <li>
+          <label for="{{ tip_form.not_local.id_for_label }}">Not local:</label>
+          {{tip_form.not_local}}
+        </li>
+        <li>
+          {{ tip_form.open_date.errors }}
+          <label for="{{ tip_form.open_date.id_for_label }}">Open Date:</label>
+          {{ tip_form.open_date|add_class:"input-lg"|attr:"placeholder:YYYY-MM-DD" }}
+        </li>
+        <li>
+          <button type="submit" class="btn btn-lg btn-primary" name="save-button">Save</button>
+          <button type="submit" class="btn btn-lg btn-default" name="cancel-button">Cancel</button>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>
+
+{%endblock content%}

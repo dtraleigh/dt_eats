@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from eats.models import Business, District, tip
-from eats.forms import edit_business_form, new_business_form, new_tip_form
+from eats.forms import edit_business_form, new_business_form, new_tip_form, edit_tip_form
 import datetime
 
 def home(request):
@@ -177,3 +177,36 @@ def tips_page(request):
     return render(request, 'tips.html', {'tip_list':tip_list,
                                     'district_list':district_list,
                                     'tip_form':tip_form})
+
+@login_required(login_url='/manage/')
+def edit_tips_page(request, tip_id):
+    the_tip = tip.objects.get(id=tip_id)
+
+    if request.method == 'POST':
+        tip_form = new_tip_form(request.POST, instance=the_tip)
+
+        if "cancel-button" in request.POST:
+            messages.info(request, 'Canceled editing the tip.')
+
+            return HttpResponseRedirect('/manage/main/')
+
+        if tip_form.is_valid():
+            tip_form.save()
+            messages.success(request, 'Tip, ' + the_tip.name + ', edited.')
+
+            return HttpResponseRedirect('/manage/main/')
+    else:
+        tip_form = edit_tip_form(initial=
+            {'name': the_tip.name,
+            'district': the_tip.district,
+            'link': the_tip.link,
+            'description': the_tip.description,
+            'has_outdoor_seating': the_tip.has_outdoor_seating,
+            'is_temp_closed': the_tip.is_temp_closed,
+            'is_eats': the_tip.is_eats,
+            'is_drinks': the_tip.is_drinks,
+            'is_coffee': the_tip.is_coffee,
+            'not_local': the_tip.not_local,
+            'open_date': the_tip.open_date})
+
+    return render(request, 'edit_tips.html', {'tip_form':tip_form})
