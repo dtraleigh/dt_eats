@@ -190,6 +190,12 @@ def edit_tips_page(request, tip_id):
 
             return HttpResponseRedirect('/manage/main/')
 
+        if "delete-button" in request.POST:
+            the_tip.delete()
+            messages.info(request, 'Tip has been deleted.')
+
+            return HttpResponseRedirect('/manage/main/')
+
         if tip_form.is_valid():
             tip_form.save()
             messages.success(request, 'Tip, ' + the_tip.name + ', edited.')
