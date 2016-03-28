@@ -250,6 +250,9 @@ select{
 .form-style-1 .required{
     color:red;
 }
+.tip-name-li{
+  font-size: 1.5em;
+}
 /*
 Responsive elements
 */

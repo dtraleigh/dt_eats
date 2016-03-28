@@ -9,13 +9,20 @@
       {%for district in district_list%}
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">{{district.name}}</h3>
+          <h2 class="panel-title">{{district.name}}</h2>
         </div>
         <div class="panel-body">
           <ul>
             {%for tip in tip_list%}
               {%if tip.district == district%}
-                <li><a href="/manage/tips/{{tip.id}}">{{tip.name}}</a></li>
+                <li>
+                  <a href="/manage/tips/{{tip.id}}" class="tip-name-li">{{tip.name}}</a>
+                  {%if today < tip.open_date%}
+                    <span class="label label-info">Coming Soon</span>
+                  {%elif today >= tip.open_date%}
+                    <span class="label label-success">Now Open!</span>
+                  {%endif%}
+                </li>
               {%endif%}
             {%endfor%}
           </ul>

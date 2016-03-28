@@ -159,6 +159,7 @@ def tips_page(request):
     #\\\
     tip_list = tip.objects.all()
     district_list = District.objects.all()
+    today = datetime.date.today()
 
     if request.method == 'POST':
         tip_form = new_tip_form(request.POST)
@@ -166,44 +167,45 @@ def tips_page(request):
         if 'cancel-button' in request.POST:
             messages.info(request, 'Canceled adding new tip.')
 
-            return HttpResponseRedirect('/manage/main/')
+            return HttpResponseRedirect('/manage/tips/')
 
         if tip_form.is_valid():
             new_tip_name = tip_form.cleaned_data['name']
             tip_form.save()
             messages.success(request, 'New tip, ' + new_tip_name + ', added.')
 
-            return HttpResponseRedirect('/manage/main/')
+            return HttpResponseRedirect('/manage/tips/')
     else:
         tip_form = new_tip_form()
 
     return render(request, 'tips.html', {'tip_list':tip_list,
                                     'district_list':district_list,
-                                    'tip_form':tip_form})
+                                    'tip_form':tip_form,
+                                    'today':today})
 
 @login_required(login_url='/manage/')
 def edit_tips_page(request, tip_id):
     the_tip = tip.objects.get(id=tip_id)
 
     if request.method == 'POST':
-        tip_form = new_tip_form(request.POST, instance=the_tip)
+        tip_form = edit_tip_form(request.POST, instance=the_tip)
 
         if 'cancel-button' in request.POST:
             messages.info(request, 'Canceled editing the tip.')
 
-            return HttpResponseRedirect('/manage/main/')
+            return HttpResponseRedirect('/manage/tips/')
 
         if 'delete-button' in request.POST:
             the_tip.delete()
             messages.info(request, 'Tip has been deleted.')
 
-            return HttpResponseRedirect('/manage/main/')
+            return HttpResponseRedirect('/manage/tips/')
 
         if tip_form.is_valid():
             tip_form.save()
             messages.success(request, 'Tip, ' + the_tip.name + ', edited.')
 
-            return HttpResponseRedirect('/manage/main/')
+            return HttpResponseRedirect('/manage/tips/')
     else:
         tip_form = edit_tip_form(initial=
             {'name': the_tip.name,
