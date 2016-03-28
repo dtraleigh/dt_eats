@@ -56,6 +56,7 @@ class tip(models.Model):
     is_coffee = models.BooleanField(verbose_name='Coffees')
     not_local = models.BooleanField(verbose_name='Not local?')
     open_date = models.DateField(null=True, blank=True)
+    added = models.BooleanField(verbose_name='Added to Eats?')
 
     def __str__(self):
         return '%s' % (self.name)
