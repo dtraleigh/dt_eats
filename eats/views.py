@@ -160,6 +160,17 @@ def tips_page(request):
     tip_list = tip.objects.all()
     district_list = District.objects.all()
     today = datetime.date.today()
+    open_businesses = Business.objects.filter(Q(open_date__lte=datetime.datetime.today()) &
+                (Q(close_date=None) | Q(close_date__gt=datetime.datetime.today()))
+            )
+
+    #Update our tips 'added' field. If there is an open business with the same name as the tip,
+    #I'll assume that I've already added it from the tip list.
+    for business in open_businesses:
+        for a_tip in tip_list:
+            if business.name == a_tip.name:
+                a_tip.added = True
+                a_tip.save()
 
     if request.method == 'POST':
         tip_form = new_tip_form(request.POST)
@@ -181,7 +192,8 @@ def tips_page(request):
     return render(request, 'tips.html', {'tip_list':tip_list,
                                     'district_list':district_list,
                                     'tip_form':tip_form,
-                                    'today':today})
+                                    'today':today,
+                                    'open_businesses':open_businesses})
 
 @login_required(login_url='/manage/')
 def edit_tips_page(request, tip_id):

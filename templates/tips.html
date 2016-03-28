@@ -22,6 +22,9 @@
                   {%elif today >= tip.open_date%}
                     <span class="label label-success">Now Open!</span>
                   {%endif%}
+                  {%if tip.added%}
+                    <span class="label label-primary">Added</span>
+                  {%endif%}
                 </li>
               {%endif%}
             {%endfor%}
