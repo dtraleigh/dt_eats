@@ -23,8 +23,8 @@ def home(request):
     #Need to build an array of arrays that contain the district and the appropriate eats, drinks,
     #coffees labels, depending on if these are appropriate or not.
     #
-    #labels_array = [[4, "Eats", "Drinks", "Coffees"],
-    #                [2, "Eats", "Coffees"]]
+    #labels_array = [[4, 'Eats', 'Drinks', 'Coffees'],
+    #                [2, 'Eats', 'Coffees']]
 
     labels_array = []
 
@@ -33,15 +33,15 @@ def home(request):
         new_district_array.append(district.id)
         for business in open_businesses:
             if business.is_eats and business.district == district:
-                new_district_array.append("Eats")
+                new_district_array.append('Eats')
                 break
         for business in open_businesses:
             if business.is_drinks and business.district == district:
-                new_district_array.append("Drinks")
+                new_district_array.append('Drinks')
                 break
         for business in open_businesses:
             if business.is_coffee and business.district == district:
-                new_district_array.append("Coffees")
+                new_district_array.append('Coffees')
                 break
         labels_array.append(new_district_array)
 
@@ -98,7 +98,7 @@ def edit_business(request, biz_id):
     if request.method == 'POST':
         form = edit_business_form(request.POST, instance=business_to_edit)
 
-        if "cancel-button" in request.POST:
+        if 'cancel-button' in request.POST:
             messages.info(request, 'Canceled edit to ' + business_to_edit.name + '.')
 
             return HttpResponseRedirect('/manage/main/')
@@ -107,7 +107,10 @@ def edit_business(request, biz_id):
             form.save()
             messages.success(request, 'Details for ' + business_to_edit.name + ' updated.')
 
-            return HttpResponseRedirect('/manage/main/')
+            if 'save-logout-button' in request.POST:
+                return HttpResponseRedirect('/manage/main/logout/')
+            else:
+                return HttpResponseRedirect('/manage/main/')
     else:
         form = edit_business_form(initial=
             {'name': business_to_edit.name,
@@ -133,7 +136,7 @@ def add_business(request):
     if request.method == 'POST':
         form = edit_business_form(request.POST)
 
-        if "cancel-button" in request.POST:
+        if 'cancel-button' in request.POST:
             messages.info(request, 'Canceled adding new business.')
 
             return HttpResponseRedirect('/manage/main/')
@@ -160,7 +163,7 @@ def tips_page(request):
     if request.method == 'POST':
         tip_form = new_tip_form(request.POST)
 
-        if "cancel-button" in request.POST:
+        if 'cancel-button' in request.POST:
             messages.info(request, 'Canceled adding new tip.')
 
             return HttpResponseRedirect('/manage/main/')
@@ -185,12 +188,12 @@ def edit_tips_page(request, tip_id):
     if request.method == 'POST':
         tip_form = new_tip_form(request.POST, instance=the_tip)
 
-        if "cancel-button" in request.POST:
+        if 'cancel-button' in request.POST:
             messages.info(request, 'Canceled editing the tip.')
 
             return HttpResponseRedirect('/manage/main/')
 
-        if "delete-button" in request.POST:
+        if 'delete-button' in request.POST:
             the_tip.delete()
             messages.info(request, 'Tip has been deleted.')
 
