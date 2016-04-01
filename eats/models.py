@@ -53,6 +53,7 @@ class reference_link(models.Model):
     class Meta:
         verbose_name = 'Reference Link'
         verbose_name_plural = 'Reference Links'
+        ordering = ['-date_created']
 
     def __str__(self):
         return '%s' % (self.headline)

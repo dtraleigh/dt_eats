@@ -4,6 +4,13 @@
 
 <div class="container">
   <div class="row">
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+          {% for message in messages %}
+          <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+          {% endfor %}
+    </div>
+    {% endif %}
     <div class="col-xs-12 col-sm-6 col-lg-6">
       <h1>Tips</h1>
       {%for district in district_list%}
