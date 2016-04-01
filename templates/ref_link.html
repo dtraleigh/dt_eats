@@ -1,0 +1,52 @@
+{% extends "base-admin.html" %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-lg-6">
+      <h1>Reference Links</h1>
+      <ul>
+      {%for link in ref_link_list%}
+        <li><a href="{{link.url_link}}">{{link.headline}}</a>
+      {%empty%}
+        <li>No links at this time.</li>
+      {%endfor%}
+      </ul>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-lg-6">
+      <h1>Add a Reference Link</h1>
+      <form method="POST" class="link_form">{% csrf_token %}
+        <ul class="form-style-1">
+          {% load widget_tweaks %}
+          <li>
+            {{ link_form.headline.errors }}
+            <label for="{{ link_form.headline.id_for_label }}">Headline:</label>
+            {{ link_form.headline|add_class:"input-lg" }}
+          </li>
+          <li>
+            {{ link_form.url_link.errors }}
+            <label for="{{ link_form.url_link.id_for_label }}">URL:</label>
+            {{ link_form.url_link|add_class:"input-lg" }}
+          </li>
+          <li>
+            {{ link_form.description.errors }}
+            <label for="{{ link_form.description.id_for_label }}">Description:</label>
+            {{ link_form.description|add_class:"input-lg" }}
+          </li>
+          <li>
+            {{ link_form.date_published.errors }}
+            <label for="{{ link_form.date_published.id_for_label }}">Published:</label>
+            {{ link_form.date_published }}
+          </li>
+          <li>
+            <button type="submit" class="btn btn-lg btn-primary" name="save-button">Save</button>
+            <button type="submit" class="btn btn-lg btn-default" name="cancel-button">Cancel</button>
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+</div>
+
+{%endblock content%}

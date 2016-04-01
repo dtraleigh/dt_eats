@@ -4,8 +4,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from eats.models import Business, District, tip
-from eats.forms import edit_business_form, new_business_form, new_tip_form, edit_tip_form
+from eats.models import Business, District, tip, reference_link
+from eats.forms import edit_business_form, new_business_form, new_tip_form, edit_tip_form, create_ref_link_form
 import datetime
 
 def home(request):
@@ -233,3 +233,28 @@ def edit_tips_page(request, tip_id):
             'open_date': the_tip.open_date})
 
     return render(request, 'edit_tips.html', {'tip_form':tip_form})
+
+@login_required(login_url='/manage/')
+def ref_link_page(request):
+    ref_link_list = reference_link.objects.all().order_by('-date_created')
+
+    if request.method == 'POST':
+        link_form = create_ref_link_form(request.POST)
+
+        if 'cancel-button' in request.POST:
+            messages.info(request, 'Canceled creating reference link.')
+
+            return HttpResponseRedirect('/manage/tips/reference_link/')
+
+        if link_form.is_valid():
+            new_headline = link_form.cleaned_data['headline']
+            link_form.save()
+            messages.success(request, 'Reference Link, ' + new_headline + ', added.')
+
+            return HttpResponseRedirect('/manage/tips/reference_link/')
+
+    else:
+        link_form = create_ref_link_form()
+
+    return render(request, 'ref_link.html', {'ref_link_list':ref_link_list,
+                                            'link_form':link_form})

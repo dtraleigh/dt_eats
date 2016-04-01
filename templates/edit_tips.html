@@ -28,6 +28,12 @@
           {{ tip_form.description }}
         </li>
         <li>
+          {{ tip_form.references.errors }}
+          <label for="{{ tip_form.references.id_for_label }}">references:</label>
+          {{ tip_form.references }}
+          <a href="/manage/tips/reference_link/">Create a new link</a>
+        </li>
+        <li>
           <label for="{{ tip_form.has_outdoor_seating.id_for_label }}">Outdoor Seating:</label>
           {{tip_form.has_outdoor_seating}}
         </li>

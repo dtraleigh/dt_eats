@@ -26,7 +26,7 @@ class tip_admin(admin.ModelAdmin):
     list_display = ('name', 'district', 'added', 'description', 'date')
 
 class reference_link_admin(admin.ModelAdmin):
-    list_display = ('url_link', 'description')
+    list_display = ('headline', 'description', 'date_published', 'date_created')
 
 admin.site.register(District, district_admin)
 admin.site.register(Business, business_admin)
