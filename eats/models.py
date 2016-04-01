@@ -43,11 +43,23 @@ class snapshot(models.Model):
     def __str__(self):
         return 'Snapshot on %s' % (self.date)
 
+class reference_link(models.Model):
+    url_link = models.URLField(max_length=500)
+    description = models.CharField(max_length=500, default=None, blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Reference Link'
+        verbose_name_plural = 'Reference Links'
+
+    def __str__(self):
+        return '%s' % (self.link)
+
 class tip(models.Model):
     date = models.DateField(auto_now_add=True, verbose_name='Date added.')
     name = models.CharField(max_length=200)
     district = models.ForeignKey('District')
     link = models.URLField(max_length=500, default=None, blank=True, null=True)
+    references = models.ManyToManyField('reference_link')
     description = models.TextField(default=None, blank=True, null=True)
     has_outdoor_seating = models.BooleanField(verbose_name='Outdoor Seating?')
     is_temp_closed = models.BooleanField(verbose_name='Temporarily closed?')

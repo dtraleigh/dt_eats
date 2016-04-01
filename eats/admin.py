@@ -1,5 +1,5 @@
 from django.contrib import admin
-from eats.models import District, Business, snapshot, tip
+from eats.models import District, Business, snapshot, tip, reference_link
 
 class district_admin(admin.ModelAdmin):
     fields = ('name', 'description', 'link', 'photo', 'district_map')
@@ -25,7 +25,11 @@ class snapshot_admin(admin.ModelAdmin):
 class tip_admin(admin.ModelAdmin):
     list_display = ('name', 'district', 'added', 'description', 'date')
 
+class reference_link_admin(admin.ModelAdmin):
+    list_display = ('url_link', 'description')
+
 admin.site.register(District, district_admin)
 admin.site.register(Business, business_admin)
 admin.site.register(snapshot, snapshot_admin)
 admin.site.register(tip, tip_admin)
+admin.site.register(reference_link, reference_link_admin)
