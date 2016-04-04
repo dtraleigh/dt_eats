@@ -50,6 +50,13 @@ def home(request):
                    'district_list' : district_list,
                    'labels_array' : labels_array})
 
+def tips_main(request):
+    #///
+    #Page for showing tips to visitors
+    #\\\
+
+    return render(request, 'tips_main.html')
+
 def eats_login(request):
     #///
     #This is the login page for the management view. (not the django admin page)
