@@ -54,8 +54,9 @@ def tips_main(request):
     #///
     #Page for showing tips to visitors
     #\\\
+    all_tips = tip.objects.all()
 
-    return render(request, 'tips_main.html')
+    return render(request, 'tips_main.html', {'all_tips':all_tips})
 
 def eats_login(request):
     #///

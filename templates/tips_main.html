@@ -6,5 +6,29 @@
     <h1>DT Eats</h1>
       <p class="lead">Downtown. Tips. Rumors. List.</p>
   </div>
+	<div class="row">
+		{%for tip in all_tips%}
+		<div class="col-xs-6">
+			<div class="panel panel-default">
+			  <div class="panel-heading">{{tip.name}}</div>
+			  <div class="panel-body">
+					<strong>{{tip.district}}</strong>
+			    <p>{{tip.description}}</p>
+					<ul>
+						{%if tip.link%}
+						<li><a href="{{tip.link}}">Website</a></li>
+						{%endif%}
+					</ul>
+			  </div>
+			</div>
+		</div>
+		{%if forloop.counter|divisibleby:2%}
+		</div>
+		<div class="row">
+		{%endif%}
+		{%empty%}
+		<p>No tips at this time.</p>
+		{%endfor%}
+	</div>
 
 {%endblock content%}
