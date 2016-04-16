@@ -54,7 +54,7 @@ def tips_main(request):
     #///
     #Page for showing tips to visitors
     #\\\
-    all_tips = tip.objects.all()
+    all_tips = tip.objects.filter(Q(open_date=None) | Q(open_date__gt=datetime.datetime.today()))
 
     return render(request, 'tips_main.html', {'all_tips':all_tips})
 
