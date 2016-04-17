@@ -63,6 +63,11 @@
             {{ tip_form.link|add_class:"input-lg" }}
           </li>
           <li>
+            {{ tip_form.references.errors }}
+            <label for="{{ tip_form.references.id_for_label }}">References:</label>
+            {{ tip_form.references }}
+          </li>
+          <li>
             {{ tip_form.description.errors }}
             <label for="{{ tip_form.description.id_for_label }}">Description:</label>
             {{ tip_form.description }}
