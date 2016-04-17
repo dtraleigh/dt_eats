@@ -252,14 +252,14 @@ def ref_link_page(request):
         if 'cancel-button' in request.POST:
             messages.info(request, 'Canceled creating reference link.')
 
-            return HttpResponseRedirect('/manage/tips/reference_link/')
+            return HttpResponseRedirect('/manage/tips/')
 
         if link_form.is_valid():
             new_headline = link_form.cleaned_data['headline']
             link_form.save()
             messages.success(request, 'Reference Link, ' + new_headline + ', added.')
 
-            return HttpResponseRedirect('/manage/tips/reference_link/')
+            return HttpResponseRedirect('/manage/tips/')
 
     else:
         link_form = create_ref_link_form()
