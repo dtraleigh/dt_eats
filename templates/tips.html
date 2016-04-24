@@ -65,7 +65,7 @@
           <li>
             {{ tip_form.references.errors }}
             <label for="{{ tip_form.references.id_for_label }}">References:</label>
-            {{ tip_form.references }}
+            {{ tip_form.references|add_class:"per-100-width" }}
           </li>
           <li>
             {{ tip_form.description.errors }}

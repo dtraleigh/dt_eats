@@ -253,6 +253,9 @@ select{
 .tip-name-li{
   font-size: 1.5em;
 }
+.per-100-width{
+  width:100%;
+}
 /*
 Responsive elements
 */
