@@ -30,8 +30,8 @@
         <li>
           {{ tip_form.references.errors }}
           <label for="{{ tip_form.references.id_for_label }}">references:</label>
-          {{ tip_form.references }}
-          <a href="/manage/tips/reference_link/">Create a new link</a>
+          {{ tip_form.references|add_class:"per-100-width" }}
+          <a href="/manage/tips/reference_link/" target="_blank">Create a new link</a>
         </li>
         <li>
           <label for="{{ tip_form.has_outdoor_seating.id_for_label }}">Outdoor Seating:</label>

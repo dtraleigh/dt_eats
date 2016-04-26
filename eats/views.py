@@ -238,7 +238,8 @@ def edit_tips_page(request, tip_id):
             'is_drinks': the_tip.is_drinks,
             'is_coffee': the_tip.is_coffee,
             'not_local': the_tip.not_local,
-            'open_date': the_tip.open_date})
+            'open_date': the_tip.open_date,
+            'references': [a.pk for a in the_tip.references.all()]})
 
     return render(request, 'edit_tips.html', {'tip_form':tip_form})
 
