@@ -260,7 +260,10 @@ def ref_link_page(request):
             link_form.save()
             messages.success(request, 'Reference Link, ' + new_headline + ', added.')
 
-            return HttpResponseRedirect('/manage/tips/')
+            if 'save-and-add' in request.POST:
+                return HttpResponseRedirect('/manage/tips/reference_link/')
+            else:
+                return HttpResponseRedirect('/manage/tips/')
 
     else:
         link_form = create_ref_link_form()
