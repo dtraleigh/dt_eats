@@ -288,6 +288,10 @@ Responsive elements
 .jumbotron h1, .jumbotron p{
 	color:#E5E5E5;
 }
+.jumbo-tips h1, .jumbo-tips p{
+  color: darkslategrey;
+  background: rgba(217, 221, 222, 0.5);
+}
 
 /* Supporting marketing content */
 .marketing {
