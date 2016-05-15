@@ -11,17 +11,47 @@
 	</div>
 	<div class="row">
 		{%for tip in all_tips%}
-		<div class="col-xs-6">
-			<div class="panel panel-default">
-			  <div class="panel-heading">{{tip.name}}</div>
+		<div class="col-sm-6 col-xs-12">
+			<div class="panel panel-primary">
+			  <div class="panel-heading">
+					<strong>{{tip.name}}</strong>
+					{%if today < tip.open_date%}
+						<span class="label label-success pull-right">Coming Soon</span>
+					{%endif%}
+					{%if tip.is_new_tip%}
+						<span class="label label-warning pull-right">New!</span>
+					{%endif%}
+				</div>
 			  <div class="panel-body">
-					<strong>{{tip.district}}</strong>
-			    <p>{{tip.description}}</p>
-					<ul>
-						{%if tip.link%}
-						<li><a href="{{tip.link}}">Website</a></li>
+					<div class="well">
+						{%if tip.description%}
+							<p>{{tip.description}}</p>
+						{%else%}
+							<p><em>No description provided</em></p>
 						{%endif%}
-					</ul>
+					</div>
+					{%if tip.link%}
+						<p><a href="{{tip.link}}">Check out their website.</a></p>
+					{%endif%}
+					{%if tip.open_date%}
+						<p>Planned open date: {{tip.open_date}}</p>
+					{%else%}
+						<p>Planned open date: Not yet</p>
+					{%endif%}
+						<p>District: {{tip.district}}</p>
+						<br>
+						<h4>Sources</h4>
+						<ul>
+							{%for source in tip.references.all%}
+								{%if forloop.last and forloop.counter0 != 0%}
+									<li><a href="{{source.url_link}}">and Here</a></li>
+								{%else%}
+									<li><a href="{{source.url_link}}">Here</a></li>
+								{%endif%}
+							{%empty%}
+								<li>No internet sources for this one.</li>
+							{%endfor%}
+						</ul>
 			  </div>
 			</div>
 		</div>

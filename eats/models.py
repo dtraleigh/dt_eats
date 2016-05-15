@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 class District(models.Model):
     name = models.CharField(max_length=200, unique=True)
@@ -73,6 +74,13 @@ class tip(models.Model):
     not_local = models.BooleanField(verbose_name='Not local?')
     open_date = models.DateField(null=True, blank=True)
     added = models.BooleanField(verbose_name='Added to Eats?')
+
+    @property
+    def is_new_tip(self):
+        today = datetime.date.today()
+        if today < self.date + datetime.timedelta(days=14):
+            return True
+        return False
 
     def __str__(self):
         return '%s' % (self.name)

@@ -54,9 +54,13 @@ def tips_main(request):
     #///
     #Page for showing tips to visitors
     #\\\
-    all_tips = tip.objects.filter(Q(open_date=None) & Q(added=False))
+    all_tips = tip.objects.filter((Q(open_date=None) |
+                                Q(open_date__gt=datetime.datetime.today())) &
+                                Q(added=False)).order_by('-date')
+    today = datetime.date.today()
 
-    return render(request, 'tips_main.html', {'all_tips':all_tips})
+    return render(request, 'tips_main.html', {'all_tips':all_tips,
+                                            'today':today})
 
 def eats_login(request):
     #///
