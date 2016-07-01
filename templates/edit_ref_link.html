@@ -3,29 +3,9 @@
 {% block content %}
 
 <div class="container">
-
-  {% if messages %}
-  <div class="alert alert-success" role="alert">
-        {% for message in messages %}
-        <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-        {% endfor %}
-  </div>
-  {% endif %}
-
   <div class="row">
-    <div class="col-xs-12 col-sm-6 col-lg-6">
-      <h1>Reference Links</h1>
-      {%for link in ref_link_list%}
-        <div class="list-group">
-          <h5 class="list-group-item-heading">{{link.headline}}</h5>
-          <p><a href="{{link.url_link}}">Go to Link</a> | <a href="/manage/tips/reference_link/{{link.id}}">Edit</a></p>
-        </div>
-      {%empty%}
-        <p>No links at this time.</p>
-      {%endfor%}
-    </div>
-    <div class="col-xs-12 col-sm-6 col-lg-6">
-      <h1>Add a Reference Link</h1>
+    <div class="col-xs-12 col-sm-12 col-lg-12">
+      <h1>Edit Reference Link</h1>
       <form method="POST" class="link_form">{% csrf_token %}
         <ul class="form-style-1">
           {% load widget_tweaks %}
@@ -51,7 +31,6 @@
           </li>
           <li>
             <button type="submit" class="btn btn-lg btn-primary btn-block" name="save-button">Save</button>
-            <button type="submit" class="btn btn-lg btn-primary btn-block" name="save-and-add">Save and Add Another</button>
             <button type="submit" class="btn btn-lg btn-default btn-block" name="cancel-button">Cancel</button>
           </li>
         </ul>

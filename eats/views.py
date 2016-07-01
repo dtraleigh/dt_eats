@@ -289,3 +289,33 @@ def ref_link_page(request):
 
     return render(request, 'ref_link.html', {'ref_link_list':ref_link_list,
                                             'link_form':link_form})
+
+@login_required(login_url='/manage/')
+def edit_ref_link_page(request, ref_id):
+    ref_link = reference_link.objects.get(id=ref_id)
+
+    if request.method == 'POST':
+        link_form = create_ref_link_form(request.POST, instance=ref_link)
+
+        if 'cancel-button' in request.POST:
+            messages.info(request, 'Canceled editing reference link.')
+
+            return HttpResponseRedirect('/manage/tips/reference_link/')
+
+        if link_form.is_valid():
+            new_headline = link_form.cleaned_data['headline']
+            link_form.save()
+            messages.success(request, 'Reference Link, ' + new_headline + ', edited.')
+
+            return HttpResponseRedirect('/manage/tips/reference_link/')
+
+    else:
+        link_form = create_ref_link_form(initial={
+        'url_link':ref_link.url_link,
+        'description':ref_link.description,
+        'headline':ref_link.headline,
+        'date_published':ref_link.date_published
+        })
+
+    return render(request, 'edit_ref_link.html', {'ref_link':ref_link,
+                                            'link_form':link_form})
