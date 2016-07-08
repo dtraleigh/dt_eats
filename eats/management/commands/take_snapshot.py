@@ -5,14 +5,22 @@
 #\\\\
 
 from django.core.management.base import BaseCommand, CommandError
+from django.db.models import Q
 from eats.models import Business, snapshot
+import datetime
 
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        the_locals = Business.objects.filter(not_local=False, display_on_site=True)
-        not_the_locals = Business.objects.filter(not_local=True, display_on_site=True)
-        all_active_businesses = Business.objects.filter(display_on_site=True)
+        the_locals = Business.objects.filter(
+                    Q(open_date__lte=datetime.datetime.today()) &
+                    (Q(close_date=None) | Q(close_date__gt=datetime.datetime.today()))).filter(not_local=False)
+        not_the_locals = Business.objects.filter(
+                    Q(open_date__lte=datetime.datetime.today()) &
+                    (Q(close_date=None) | Q(close_date__gt=datetime.datetime.today()))).filter(not_local=True)
+        all_active_businesses = Business.objects.filter(
+                    Q(open_date__lte=datetime.datetime.today()) &
+                    (Q(close_date=None) | Q(close_date__gt=datetime.datetime.today())))
 
         new_snapshot = snapshot(local_business_count=the_locals.count(),
                             not_local_business_count=not_the_locals.count())
