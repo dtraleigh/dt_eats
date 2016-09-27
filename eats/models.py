@@ -28,6 +28,13 @@ class Business(models.Model):
     open_date = models.DateField()
     close_date = models.DateField(null=True, blank=True, verbose_name='First closed date')
 
+    @property
+    def is_new_biz(self):
+        today = datetime.date.today()
+        if today < self.open_date + datetime.timedelta(days=90):
+            return True
+        return False
+
     class Meta:
         verbose_name = 'Business'
         verbose_name_plural = 'Businesses'
