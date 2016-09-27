@@ -13,6 +13,7 @@
     {% endif %}
     <div class="col-xs-12 col-sm-6 col-lg-6">
       <h1>Tips</h1>
+      <p><a href="#add_tip">Add new</a></p>
       {%for district in district_list%}
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -43,6 +44,7 @@
       {%endfor%}
     </div>
     <div class="col-xs-12 col-sm-6 col-lg-6">
+      <a name="add_tip"></a>
       <h1>Add a Tip</h1>
       <form method="POST" class="tip_form">{% csrf_token %}
         <ul class="form-style-1">
