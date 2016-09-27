@@ -55,6 +55,9 @@
 									{%if business.has_outdoor_seating%}
 										<img src="{% static "img/outdoor_seating_logo.png" %}" class="outdoorSeatingIcon" title="Outdoor Seating" alt="(Outdoor Seating)">
 									{%endif%}
+									{%if business.is_new_biz%}
+										<span class="label label-success">New!</span>
+									{%endif%}
 										</li>
 								{%endif%}
 							{%endfor%}
