@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from eats.models import Business, District, tip, reference_link
+from eats.models import Business, District, tip, reference_link, snapshot
 from eats.forms import edit_business_form, new_business_form, new_tip_form, edit_tip_form, create_ref_link_form
 import datetime
 
@@ -97,8 +97,15 @@ def main(request):
     #This is the main manage page.
     #\\\
     all_businesses = Business.objects.all().order_by('-date_added')
+    recent_snapshot = snapshot.objects.latest('date')
 
-    return render(request, 'main.html', {'all_businesses':all_businesses})
+    total_open = recent_snapshot.local_business_count + recent_snapshot.not_local_business_count
+
+    local_percent = (recent_snapshot.local_business_count / total_open) * 100
+
+    return render(request, 'main.html', {'all_businesses':all_businesses,
+                                        'recent_snapshot':recent_snapshot,
+                                        'local_percent':round(local_percent, 1)})
 
 @login_required(login_url='/manage/')
 def edit_business(request, biz_id):

@@ -257,6 +257,13 @@ select{
   width:100%;
 }
 /*
+Local count Table
+*/
+#local-table{
+  margin: 20px auto;
+  width: 50%;
+}
+/*
 Responsive elements
 */
 

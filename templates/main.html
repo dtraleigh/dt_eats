@@ -12,6 +12,22 @@
     </div>
     {% endif %}
 
+    <div class="col-xs-12 col-sm-12 col-lg-12">
+      <h4 class="text-center">{{recent_snapshot.date}}</h4>
+      <table class="table table-bordered" id="local-table">
+        <tr>
+          <th>Local</th>
+          <th>Not Local</th>
+          <th>Summary</th>
+        </tr>
+        <tr>
+          <td>{{recent_snapshot.local_business_count}}</td>
+          <td>{{recent_snapshot.not_local_business_count}}</td>
+          <td>{{local_percent}}% Local!</td>
+        </tr>
+      </table>
+    </div>
+
     <ul class="form-style-1">
       <li><input class="search field-long input-lg" placeholder="Search" />
       <button class="sort" id="find-button" data-sort="business_name">
