@@ -1,3 +1,4 @@
+import django
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib import messages
@@ -7,6 +8,11 @@ from django.db.models import Q
 from eats.models import Business, District, tip, reference_link, snapshot
 from eats.forms import edit_business_form, new_business_form, new_tip_form, edit_tip_form, create_ref_link_form
 import datetime
+
+def debug(request):
+    version = str(django.VERSION)
+
+    return render(request, 'debug.html', {'version': version})
 
 def home(request):
     #///
