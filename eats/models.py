@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 
+
 class District(models.Model):
     name = models.CharField(max_length=200, unique=True)
     description = models.TextField(blank=True)
@@ -9,12 +10,13 @@ class District(models.Model):
     district_map = models.URLField(blank=True)
 
     def __str__(self):
-        return '%s' % (self.name)
+        return '%s' % self.name
+
 
 class Business(models.Model):
     date_added = models.DateTimeField(auto_now_add=True, verbose_name='Date added.')
     name = models.CharField(max_length=200)
-    district = models.ForeignKey('District')
+    district = models.ForeignKey('District', on_delete=models.SET_NULL, null=True)
     link = models.URLField(max_length=500)
     description = models.TextField(default=None, blank=True, null=True)
     latitude = models.IntegerField(default=None, blank=True, null=True, verbose_name='Latitude')
@@ -40,7 +42,8 @@ class Business(models.Model):
         verbose_name_plural = 'Businesses'
 
     def __str__(self):
-        return '%s' % (self.name)
+        return '%s' % self.name
+
 
 class snapshot(models.Model):
     date = models.DateField(auto_now_add=True)
@@ -50,6 +53,7 @@ class snapshot(models.Model):
 
     def __str__(self):
         return 'Snapshot on %s' % (self.date)
+
 
 class reference_link(models.Model):
     url_link = models.URLField(max_length=500, unique=True)
@@ -64,14 +68,15 @@ class reference_link(models.Model):
         ordering = ['-date_created']
 
     def __str__(self):
-        return '%s' % (self.headline)
+        return '%s' % self.headline
+
 
 class tip(models.Model):
     date = models.DateField(auto_now_add=True, verbose_name='Date added.')
     name = models.CharField(max_length=200)
-    district = models.ForeignKey('District')
+    district = models.ForeignKey('District', on_delete=models.SET_NULL, null=True)
     link = models.URLField(max_length=500, default=None, blank=True, null=True)
-    references = models.ManyToManyField('reference_link', default=None, blank=True)
+    references = models.ManyToManyField(reference_link, default=None, blank=True)
     description = models.TextField(default=None, blank=True, null=True)
     has_outdoor_seating = models.BooleanField(verbose_name='Outdoor Seating?')
     is_temp_closed = models.BooleanField(verbose_name='Temporarily closed?')
@@ -90,4 +95,4 @@ class tip(models.Model):
         return False
 
     def __str__(self):
-        return '%s' % (self.name)
+        return '%s' % self.name
