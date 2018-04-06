@@ -60,6 +60,11 @@
             {{ tip_form.district|add_class:"input-lg" }}
           </li>
           <li>
+            {{ tip_form.food_hall.errors }}
+            <label for="{{ tip_form.food_hall.id_for_label }}">Food Hall:</label>
+            {{ tip_form.food_hall|add_class:"input-lg" }}
+          </li>
+          <li>
             {{ tip_form.link.errors }}
             <label for="{{ tip_form.link.id_for_label }}">URL:</label>
             {{ tip_form.link|add_class:"input-lg" }}
@@ -93,6 +98,10 @@
           <li>
             <label for="{{ tip_form.is_coffee.id_for_label }}">Coffees:</label>
             {{tip_form.is_coffee}}
+          </li>
+          <li>
+            <label for="{{ tip_form.is_food_hall.id_for_label }}">Is Food Hall?:</label>
+            {{tip_form.is_food_hall}}
           </li>
           <li>
             <label for="{{ tip_form.not_local.id_for_label }}">Not local:</label>

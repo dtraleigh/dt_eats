@@ -18,6 +18,11 @@
           {{ tip_form.district|add_class:"input-lg" }}
         </li>
         <li>
+          {{ tip_form.food_hall.errors }}
+          <label for="{{ tip_form.food_hall.id_for_label }}">Food Hall:</label>
+          {{ tip_form.food_hall|add_class:"input-lg" }}
+        </li>
+        <li>
           {{ tip_form.link.errors }}
           <label for="{{ tip_form.link.id_for_label }}">URL:</label>
           {{ tip_form.link|add_class:"input-lg" }}
@@ -66,6 +71,7 @@
           <button type="submit" class="btn btn-lg btn-primary" name="save-button">Save</button>
           <button type="submit" class="btn btn-lg btn-default" name="cancel-button">Cancel</button>
           <button type="submit" class="btn btn-lg btn-success" name="create-biz">Create Biz</button>
+          <button type="submit" class="btn btn-lg btn-success" name="create-vendor">Create Vendor</button>
           <button type="submit" class="btn btn-xs btn-danger pull-right" name="delete-button">Delete</button>
         </li>
       </ul>

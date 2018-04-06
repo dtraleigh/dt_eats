@@ -248,11 +248,11 @@ def tips_page(request):
 
     # Update our tips 'added' field. If there is an open business with the same name as the tip,
     # I'll assume that I've already added it from the tip list.
-    for business in open_businesses:
-        for a_tip in tip_list:
-            if business.name == a_tip.name:
-                a_tip.added = True
-                a_tip.save()
+    # for business in open_businesses:
+    #     for a_tip in tip_list:
+    #         if business.name == a_tip.name:
+    #             a_tip.added = True
+    #             a_tip.save()
 
     if request.method == 'POST':
         tip_form = new_tip_form(request.POST)
@@ -270,6 +270,7 @@ def tips_page(request):
             return HttpResponseRedirect('/manage/tips/')
     else:
         tip_form = new_tip_form()
+        tip_form.fields['food_hall'].queryset = Business.objects.filter(is_food_hall=True)
 
     return render(request, 'tips.html', {'tip_list': tip_list,
                                          'district_list': district_list,
@@ -311,25 +312,30 @@ def edit_tips_page(request, tip_id):
                                                   is_coffee=the_tip.is_coffee,
                                                   not_local=the_tip.not_local,
                                                   open_date=the_tip.open_date)
+                the_tip.added = True
+                the_tip.save()
+
                 messages.info(request, 'New business ' + new_biz.name + ' created.')
+
+            if 'create-vendor' in request.POST:
+                new_vendor = Vendor.objects.create(name=the_tip.name,
+                                                   food_hall=the_tip.food_hall,
+                                                   link=the_tip.link,
+                                                   description=the_tip.description,
+                                                   is_temp_closed=the_tip.is_temp_closed,
+                                                   not_local=the_tip.not_local,
+                                                   open_date=the_tip.open_date)
+                the_tip.added = True
+                the_tip.save()
+                
+                messages.info(request, 'New vendor ' + new_vendor.name + ' created.')
 
             messages.success(request, 'Tip, ' + the_tip.name + ', edited.')
 
             return HttpResponseRedirect('/manage/tips/')
     else:
-        tip_form = edit_tip_form(initial=
-            {'name': the_tip.name,
-             'district': the_tip.district,
-             'link': the_tip.link,
-             'description': the_tip.description,
-             'has_outdoor_seating': the_tip.has_outdoor_seating,
-             'is_temp_closed': the_tip.is_temp_closed,
-             'is_eats': the_tip.is_eats,
-             'is_drinks': the_tip.is_drinks,
-             'is_coffee': the_tip.is_coffee,
-             'not_local': the_tip.not_local,
-             'open_date': the_tip.open_date,
-             'references': [a.pk for a in the_tip.references.all()]})
+        tip_form = edit_tip_form(instance=the_tip)
+        tip_form.fields['food_hall'].queryset = Business.objects.filter(is_food_hall=True)
 
     return render(request, 'edit_tips.html', {'tip_form': tip_form})
 
