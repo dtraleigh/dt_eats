@@ -4,7 +4,8 @@
 
 <div class="container">
   <div class="row">
-    <form method="POST" class="edit_business_form">{% csrf_token %}
+    <h1 class="text-center">Add a new Vendor</h1>
+    <form method="POST" class="edit_vendor_form">{% csrf_token %}
       <ul class="form-style-1">
         {% load widget_tweaks %}
         <li>
@@ -13,9 +14,9 @@
           {{ form.name|add_class:"input-lg" }}
         </li>
         <li>
-          {{ form.district.errors }}
-          <label for="{{ form.district.id_for_label }}">District:</label>
-          {{ form.district|add_class:"input-lg" }}
+          {{ form.food_hall.errors }}
+          <label for="{{ form.food_hall.id_for_label }}">Food Hall:</label>
+          {{ form.food_hall|add_class:"input-lg" }}
         </li>
         <li>
           {{ form.link.errors }}
@@ -23,28 +24,8 @@
           {{ form.link|add_class:"input-lg" }}
         </li>
         <li>
-          <label for="{{ form.has_outdoor_seating.id_for_label }}">Outdoor Seating:</label>
-          {{form.has_outdoor_seating}}
-        </li>
-        <li>
           <label for="{{ form.is_temp_closed.id_for_label }}">Temporarily closed:</label>
           {{form.is_temp_closed}}
-        </li>
-        <li>
-          <label for="{{ form.is_eats.id_for_label }}">Eats:</label>
-          {{form.is_eats}}
-        </li>
-        <li>
-          <label for="{{ form.is_drinks.id_for_label }}">Drinks:</label>
-          {{form.is_drinks}}
-        </li>
-        <li>
-          <label for="{{ form.is_coffee.id_for_label }}">Coffees:</label>
-          {{form.is_coffee}}
-        </li>
-        <li>
-          <label for="{{ form.is_food_hall.id_for_label }}">Is Food Hall?:</label>
-          {{form.is_food_hall}}
         </li>
         <li>
           <label for="{{ form.not_local.id_for_label }}">Not local:</label>
@@ -62,7 +43,6 @@
         </li>
         <li>
           <button type="submit" class="btn btn-lg btn-primary" name="save-button">Save</button>
-          <button type="submit" class="btn btn-lg btn-primary" name="save-logout-button">Save and Logout</button>
           <button type="submit" class="btn btn-lg btn-default" name="cancel-button">Cancel</button>
         </li>
       </ul>

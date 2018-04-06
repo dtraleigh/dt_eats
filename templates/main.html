@@ -37,8 +37,12 @@
     </ul>
 
     <ul class="list text-center" id="main_business_list">
-      {%for business in all_businesses%}
-        <li><a href="/manage/edit/{{business.id}}" class="business_name">{{business.name}}</a></li>
+      {%for place in all_places%}
+        {%if place.get_cname == "business"%}
+          <li><a href="/manage/edit/biz/{{place.id}}" class="business_name">{{place.name}}</a></li>
+        {%elif place.get_cname == "vendor"%}
+          <li><a href="/manage/edit/vendor/{{place.id}}" class="business_name">{{place.name}}</a></li>
+        {%endif%}
       {%endfor%}
     <ul>
   </div>

@@ -38,6 +38,11 @@ class Business(models.Model):
             return True
         return False
 
+    @property
+    def get_cname(self):
+        class_name = "business"
+        return class_name
+
     class Meta:
         verbose_name = 'Business'
         verbose_name_plural = 'Businesses'
@@ -64,6 +69,11 @@ class Vendor(models.Model):
         if today < self.open_date + datetime.timedelta(days=90):
             return True
         return False
+
+    @property
+    def get_cname(self):
+        class_name = "vendor"
+        return class_name
 
     class Meta:
         verbose_name = 'Vendor'
