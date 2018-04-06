@@ -26,6 +26,7 @@ class Business(models.Model):
     is_eats = models.BooleanField(verbose_name='Eats')
     is_drinks = models.BooleanField(verbose_name='Drinks')
     is_coffee = models.BooleanField(verbose_name='Coffees')
+    is_food_hall = models.BooleanField(verbose_name='Food Hall?', default=False)
     not_local = models.BooleanField(verbose_name='Not local?')
     open_date = models.DateField()
     close_date = models.DateField(null=True, blank=True, verbose_name='First closed date')
@@ -40,6 +41,33 @@ class Business(models.Model):
     class Meta:
         verbose_name = 'Business'
         verbose_name_plural = 'Businesses'
+
+    def __str__(self):
+        return '%s' % self.name
+
+
+class Vendor(models.Model):
+    # vendors are primarily for stalls inside a food hall, which is a business object itself.
+    date_added = models.DateTimeField(auto_now_add=True, verbose_name='Date added.')
+    food_hall = models.ForeignKey('Business', on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=200)
+    link = models.URLField(max_length=500)
+    description = models.TextField(default=None, blank=True, null=True)
+    is_temp_closed = models.BooleanField(verbose_name='Temporarily closed?')
+    not_local = models.BooleanField(verbose_name='Not local?')
+    open_date = models.DateField()
+    close_date = models.DateField(null=True, blank=True, verbose_name='First closed date')
+
+    @property
+    def is_new_biz(self):
+        today = datetime.date.today()
+        if today < self.open_date + datetime.timedelta(days=90):
+            return True
+        return False
+
+    class Meta:
+        verbose_name = 'Vendor'
+        verbose_name_plural = 'Vendors'
 
     def __str__(self):
         return '%s' % self.name
