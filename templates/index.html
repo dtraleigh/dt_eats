@@ -48,7 +48,11 @@
 									{%else%}
 										<li>
 									{%endif%}
+									{%if business.is_food_hall%}
+										<a href="#food_hall{{business.id}}" title="{{business.name}}" class="businessLink" data-toggle="collapse">{{business.name}}</a>
+									{%else%}
 										<a href="{{business.link}}" title="{{business.name}}" class="businessLink">{{business.name}}</a>
+									{%endif%}
 									{%if business.is_temp_closed%}
 										(temp closed)
 									{%endif%}
@@ -57,6 +61,15 @@
 									{%endif%}
 									{%if business.is_new_biz%}
 										<span class="label label-success">New!</span>
+									{%endif%}
+									{%if business.is_food_hall%}
+										<div class="collapse" id="food_hall{{business.id}}">
+											<ul>
+												<li>Food Hall vendor 1</li>
+												<li>Food Hall vendor 2</li>
+												<li>Food Hall vendor 3</li>
+											</ul>
+										</div>
 									{%endif%}
 										</li>
 								{%endif%}

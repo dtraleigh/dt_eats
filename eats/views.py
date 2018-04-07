@@ -327,7 +327,7 @@ def edit_tips_page(request, tip_id):
                                                    open_date=the_tip.open_date)
                 the_tip.added = True
                 the_tip.save()
-                
+
                 messages.info(request, 'New vendor ' + new_vendor.name + ' created.')
 
             messages.success(request, 'Tip, ' + the_tip.name + ', edited.')
