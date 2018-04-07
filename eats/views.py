@@ -29,6 +29,12 @@ def home(request):
                 (Q(close_date=None) | Q(close_date__gt=datetime.datetime.today()))
             ).order_by('name')
 
+    # Get only open Vendors
+    open_vendors = Vendor.objects.filter(
+        Q(open_date__lte=datetime.datetime.today()) &
+        (Q(close_date=None) | Q(close_date__gt=datetime.datetime.today()))
+    ).order_by('name')
+
     # Need to build an array of arrays that contain the district and the appropriate eats, drinks,
     # coffees labels, depending on if these are appropriate or not.
     #
@@ -56,8 +62,9 @@ def home(request):
 
     return render(request, 'index.html',
                   {'business_list': open_businesses,
-                   'district_list' : district_list,
-                   'labels_array' : labels_array})
+                   'vendor_list': open_vendors,
+                   'district_list': district_list,
+                   'labels_array': labels_array})
 
 
 def tips_main(request):

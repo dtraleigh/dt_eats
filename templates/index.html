@@ -28,7 +28,7 @@
       </div>
     </div>
 	<div class="row marketing">
-		<p class="text-center"><button class="btn btn-lg btn-success jQueryLocal" title="Downtown Raleigh Eats Local">Show Local Only</a></button></p>
+		<p class="text-center"><button class="btn btn-lg btn-success local-toggle" title="Downtown Raleigh Eats Local">Show Local Only</a></button></p>
 		<p class="text-center notlocalyay">Showing only local Eats. (yay!)</p>
 	</div>
 
@@ -49,15 +49,16 @@
 										<li>
 									{%endif%}
 									{%if business.is_food_hall%}
-										<a href="#food_hall{{business.id}}" title="{{business.name}}" class="businessLink" data-toggle="collapse">{{business.name}}</a>
+										<a href="#food_hall{{business.id}}" title="{{business.name}}" class="businessLink" data-toggle="collapse" id="food-hall{{business.id}}">{{business.name}}
+											<span class="glyphicon glyphicon-collapse-down" aria-hidden="true" id="glyphicon-foodhall{{business.id}}"></span></a>
 									{%else%}
 										<a href="{{business.link}}" title="{{business.name}}" class="businessLink">{{business.name}}</a>
 									{%endif%}
-									{%if business.is_temp_closed%}
-										(temp closed)
-									{%endif%}
 									{%if business.has_outdoor_seating%}
 										<img src="{% static "img/outdoor_seating_logo.png" %}" class="outdoorSeatingIcon" title="Outdoor Seating" alt="(Outdoor Seating)">
+									{%endif%}
+									{%if business.is_temp_closed%}
+										(temp closed)
 									{%endif%}
 									{%if business.is_new_biz%}
 										<span class="label label-success">New!</span>
@@ -65,9 +66,13 @@
 									{%if business.is_food_hall%}
 										<div class="collapse" id="food_hall{{business.id}}">
 											<ul>
-												<li>Food Hall vendor 1</li>
-												<li>Food Hall vendor 2</li>
-												<li>Food Hall vendor 3</li>
+												{%for vendor in vendor_list%}
+													{%if vendor.food_hall == business and vendor.not_local%}
+														<li class="notlocal"><a href="{{vendor.link}}">{{vendor.name}}</a></li>
+													{%elif vendor.food_hall == business%}
+														<li><a href="{{vendor.link}}">{{vendor.name}}</a></li>
+													{%endif%}
+												{%endfor%}
 											</ul>
 										</div>
 									{%endif%}
@@ -141,5 +146,6 @@
 				<p><a class="btn btn-success" href="#top" title="Back to the Districts">Back to the Districts</a></p>
 			</div>
 		</div>
+
 	{%endfor%}
 {%endblock content%}
