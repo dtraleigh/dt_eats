@@ -39,6 +39,20 @@ class Business(models.Model):
         return False
 
     @property
+    def is_open(self):
+        today = datetime.date.today()
+        if self.open_date <= today:
+            return True
+        return False
+
+    @property
+    def is_coming_soon(self):
+        today = datetime.date.today()
+        if today < self.open_date and not self.close_date:
+            return True
+        return False
+
+    @property
     def get_cname(self):
         class_name = "business"
         return class_name

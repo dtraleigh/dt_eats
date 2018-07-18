@@ -60,8 +60,11 @@
 									{%if business.is_temp_closed%}
 										(temp closed)
 									{%endif%}
-									{%if business.is_new_biz%}
+									{%if business.is_new_biz and business.is_open%}
 										<span class="label label-success">New!</span>
+									{%endif%}
+									{%if business.is_coming_soon%}
+										<span class="label label-info">Coming Soon</span>
 									{%endif%}
 									{%if business.is_food_hall%}
 										<div class="collapse" id="food_hall{{business.id}}">

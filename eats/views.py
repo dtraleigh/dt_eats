@@ -23,14 +23,11 @@ def home(request):
     # \\\
     district_list = District.objects.all().order_by('name')
 
-    # Get only open businesses.
-    open_businesses = Business.objects.filter(
-                Q(open_date__lte=datetime.datetime.today()) &
-                (Q(close_date=None) | Q(close_date__gt=datetime.datetime.today()))
-            ).order_by('name')
+    # Get only open businesses. Basically, if it has a closing date equal or lt today, it's open or coming soon.
+    open_and_coming_soon_businesses = Business.objects.filter(~Q(close_date__lt=datetime.datetime.today())).order_by('name')
 
-    # Get only open Vendors
-    open_vendors = Vendor.objects.filter(
+    # Get only open Vendors. Basically, if it has a closing date equal or lt today, it's open or coming soon.
+    open_and_coming_soon_vendors = Vendor.objects.filter(
         Q(open_date__lte=datetime.datetime.today()) &
         (Q(close_date=None) | Q(close_date__gt=datetime.datetime.today()))
     ).order_by('name')
@@ -46,23 +43,23 @@ def home(request):
     for district in district_list:
         new_district_array = []
         new_district_array.append(district.id)
-        for business in open_businesses:
+        for business in open_and_coming_soon_businesses:
             if business.is_eats and business.district == district:
                 new_district_array.append('Eats')
                 break
-        for business in open_businesses:
+        for business in open_and_coming_soon_businesses:
             if business.is_drinks and business.district == district:
                 new_district_array.append('Drinks')
                 break
-        for business in open_businesses:
+        for business in open_and_coming_soon_businesses:
             if business.is_coffee and business.district == district:
                 new_district_array.append('Coffees')
                 break
         labels_array.append(new_district_array)
 
     return render(request, 'index.html',
-                  {'business_list': open_businesses,
-                   'vendor_list': open_vendors,
+                  {'business_list': open_and_coming_soon_businesses,
+                   'vendor_list': open_and_coming_soon_vendors,
                    'district_list': district_list,
                    'labels_array': labels_array})
 
