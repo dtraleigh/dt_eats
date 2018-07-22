@@ -148,7 +148,8 @@ def add_business(request):
 
             return HttpResponseRedirect('/manage/main/')
     else:
-        form = new_business_form(initial={'link': 'http://', })
+        # form = new_business_form(initial={'link': 'http://', })
+        form = new_business_form()
 
     return render(request, 'business_add.html', {'form': form})
 
