@@ -203,7 +203,8 @@ def add_vendor(request):
 
             return HttpResponseRedirect('/manage/main/')
     else:
-        form = new_vendor_form(initial={'link': 'http://', })
+        # form = new_vendor_form(initial={'link': 'http://', })
+        form = new_vendor_form()
         form.fields['food_hall'].queryset = Business.objects.filter(is_food_hall=True)
 
     return render(request, 'vendor_add.html', {'form': form})
