@@ -13,3 +13,4 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         morgan_street()
+        transfer_co()

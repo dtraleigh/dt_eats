@@ -23,7 +23,36 @@ def send_email(foodhall):
 
 
 def transfer_co():
-    pass
+    page_link = "https://www.transfercofoodhall.com/vendors/"
+
+    page_response = requests.get(page_link, timeout=10)
+    page_content = BeautifulSoup(page_response.content, "html.parser")
+
+    eats = []
+
+    eats_divs = page_content.find_all("h2", {"class": "Index-gallery-item-content-heading"})
+
+    for eat in eats_divs:
+        eats.append(eat.get_text())
+
+    t = datetime.today()
+    filename = "transfer_co - " + t.strftime("%m-%d-%y")
+
+    with open(filename, "w", encoding="utf-8") as f:
+        for eat in eats:
+            f.write("%s\n" % eat)
+
+    y = datetime.today() - timedelta(days=1)
+    yesterdays_filename = "transfer_co - " + y.strftime("%m-%d-%y")
+
+    if compare(yesterdays_filename, filename, 'Morgan Street'):
+        # remove the file if it's two days old
+        dby = datetime.today() - timedelta(days=2)
+        dby_filename = "transfer_co - " + dby.strftime("%m-%d-%y")
+        try:
+            os.remove(dby_filename)
+        except FileNotFoundError:
+            pass
 
 
 def morgan_street():
