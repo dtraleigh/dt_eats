@@ -81,7 +81,7 @@ def eats_login(request):
     # ///
     # This is the login page for the management view. (not the django admin page)
     # \\\
-    message = 'Please log in'
+    message = 'Log in'
 
     if request.POST:
         username = request.POST.get('username')
