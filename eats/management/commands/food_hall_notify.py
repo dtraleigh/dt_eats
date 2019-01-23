@@ -12,5 +12,12 @@ from .food_hall_scrape import *
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        morgan_street()
-        transfer_co()
+        try:
+            morgan_street()
+        except:
+            pass
+
+        try:
+            transfer_co()
+        except:
+            pass
