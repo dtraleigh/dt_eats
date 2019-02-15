@@ -7,12 +7,13 @@ from email.mime.text import MIMEText
 from django.core.management.base import BaseCommand, CommandError
 from django.core import mail
 
-def send_email(foodhall):
+
+def send_email(foodhall, url):
     addresses = ["leo@dtraleigh.com"]
 
     for email in addresses:
         with mail.get_connection() as connection:
-            subject1 = "Update found at " + foodhall
+            subject1 = "Update found at " + foodhall + " - " + url
             body1 = "Check Morgan Street"
             from1 = "eats_test@dtraleigh.com"
 
@@ -70,7 +71,7 @@ def transfer_co():
         y = datetime.today() - timedelta(days=1)
         yesterdays_filename = "transfer_co - " + y.strftime("%m-%d-%y")
 
-        if compare(yesterdays_filename, filename, 'Morgan Street'):
+        if compare(yesterdays_filename, filename, 'Morgan Street', page_link):
             # remove the file if it's two days old
             dby = datetime.today() - timedelta(days=2)
             dby_filename = "transfer_co - " + dby.strftime("%m-%d-%y")
@@ -105,7 +106,7 @@ def morgan_street():
         y = datetime.today() - timedelta(days=1)
         yesterdays_filename = "morgan_street - " + y.strftime("%m-%d-%y")
 
-        if compare(yesterdays_filename, filename, 'Morgan Street'):
+        if compare(yesterdays_filename, filename, 'Morgan Street', page_link):
             # remove the file if it's two days old
             dby = datetime.today() - timedelta(days=2)
             dby_filename = "morgan_street - " + dby.strftime("%m-%d-%y")
@@ -115,11 +116,11 @@ def morgan_street():
                 pass
 
 
-def compare(f1, f2, foodhall):
+def compare(f1, f2, foodhall, url):
     if filecmp.cmp(f1, f2, shallow=True):
         # print("Two files are the same")
         return True
     else:
         # print("two files are NOT the same. Send me an email!")
-        send_email(foodhall)
+        send_email(foodhall, url)
         return False
