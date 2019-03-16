@@ -60,10 +60,9 @@
 									{%if business.is_temp_closed%}
 										(temp closed)
 									{%endif%}
-									{%if business.is_new_biz and business.is_open%}
+									{%if business.is_new_biz%}
 										<span class="label label-success">New!</span>
-									{%endif%}
-									{%if business.is_coming_soon%}
+									{%elif business.is_coming_soon%}
 										<span class="label label-info">Coming Soon</span>
 									{%endif%}
 									{%if business.is_food_hall%}
@@ -103,6 +102,8 @@
 										{%endif%}
 										{%if business.is_new_biz%}
 											<span class="label label-success">New!</span>
+										{%elif business.is_coming_soon%}
+											<span class="label label-info">Coming Soon</span>
 										{%endif%}
 										{%if "The Architect" in business.name%}
 											<img src="{% static "img/books.jpg" %}" class="books" title="Behind the bookcase" alt="Behind the bookcase" onclick="showhide_menu('btn1');">
@@ -136,6 +137,8 @@
 										{%endif%}
 										{%if business.is_new_biz%}
 											<span class="label label-success">New!</span>
+										{%elif business.is_coming_soon%}
+											<span class="label label-info">Coming Soon</span>
 										{%endif%}
 											</li>
 								{%endif%}
