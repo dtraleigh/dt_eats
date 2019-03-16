@@ -82,8 +82,25 @@ class Vendor(models.Model):
 
     @property
     def is_new_biz(self):
+        # New implies the business opened less than 90 days ago
         today = datetime.date.today()
-        if today < self.open_date + datetime.timedelta(days=90):
+        if today < self.open_date + datetime.timedelta(days=90) and today >= self.open_date:
+            return True
+        return False
+
+    @property
+    def is_open(self):
+        # Open implies the business is not past its close date and today is past or equal to the open date
+        today = datetime.date.today()
+        if today >= self.open_date and (self.close_date > today or self.close_date is None):
+            return True
+        return False
+
+    @property
+    def is_coming_soon(self):
+        # coming soon implies the business has not opened yet but we have an opening date
+        today = datetime.date.today()
+        if today < self.open_date and self.close_date is None:
             return True
         return False
 

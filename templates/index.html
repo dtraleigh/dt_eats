@@ -69,10 +69,19 @@
 										<div class="collapse" id="food_hall{{business.id}}">
 											<ul>
 												{%for vendor in vendor_list%}
-													{%if vendor.food_hall == business and vendor.not_local%}
-														<li class="notlocal"><a href="{{vendor.link}}">{{vendor.name}}</a></li>
-													{%elif vendor.food_hall == business%}
-														<li><a href="{{vendor.link}}">{{vendor.name}}</a></li>
+													{%if vendor.food_hall == business%}
+														{%if vendor.not_local%}
+															<li class="notlocal">
+														{%else%}
+															<li>
+														{%endif%}
+															<a href="{{vendor.link}}">{{vendor.name}}</a>
+														{%if vendor.is_new_biz%}
+															<span class="label label-success">New!</span>
+														{%elif vendor.is_coming_soon%}
+															<span class="label label-info">Coming Soon</span>
+														{%endif%}
+															</li>
 													{%endif%}
 												{%endfor%}
 											</ul>
