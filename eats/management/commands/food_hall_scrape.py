@@ -71,7 +71,7 @@ def transfer_co():
         y = datetime.today() - timedelta(days=1)
         yesterdays_filename = "transfer_co - " + y.strftime("%m-%d-%y")
 
-        if compare(yesterdays_filename, filename, 'Morgan Street', page_link):
+        if compare(yesterdays_filename, filename, 'Transfer Co', page_link):
             # remove the file if it's two days old
             dby = datetime.today() - timedelta(days=2)
             dby_filename = "transfer_co - " + dby.strftime("%m-%d-%y")
